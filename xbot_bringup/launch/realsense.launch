@@ -1,0 +1,22 @@
+<launch>
+<!-- realsense d415 -->
+	<include file="$(find realsense2_camera)/launch/rs_camera.launch">
+		<arg name="enable_fisheye"      default="false"/>
+		<arg name="enable_infra1"       default="false"/>
+		<arg name="enable_infra2"       default="false"/>
+
+		<arg name="depth_width"         default="1280"/>
+		<arg name="depth_height"        default="720"/>
+		<arg name="depth_fps"           default="30"/>
+
+		<arg name="color_width"         default="1280"/>
+		<arg name="color_height"        default="720"/>
+		<arg name="color_fps"           default="30"/>
+
+
+		<arg name="enable_pointcloud"   default="true"/>
+		<arg name="enable_sync"         default="true"/>
+		<arg name="align_depth"         default="true"/>
+
+	</include>
+</launch>

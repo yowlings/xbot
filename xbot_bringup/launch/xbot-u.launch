@@ -1,0 +1,28 @@
+<launch>
+	<!-- Xbot -->
+	<include file="$(find xbot_bringup)/launch/xbot.launch">
+	</include>
+
+	<!-- rplidar -->
+	<include file="$(find xbot_bringup)/launch/rplidar.launch">
+	</include>
+
+	<!-- realsense d415 -->
+	<include file="$(find xbot_bringup)/launch/realsense.launch">
+	</include>
+
+	<!-- face recog camera image -->
+	<node name="pub_camera_image" pkg="xbot_face" type="pub_camera_image" >
+	</node>
+
+	<!-- mjpeg-server -->
+	<node name="web_video_server" pkg="web_video_server" type="web_video_server" >
+		<param name="port"                       value="8080" />
+		<param name="address"                    value="192.168.8.101" />
+	</node>
+	
+
+	<!-- rosbridge_server -->
+	<include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
+
+</launch>
