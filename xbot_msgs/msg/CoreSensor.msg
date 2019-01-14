@@ -1,5 +1,6 @@
 # Xbot Core Sensor Data Messages
 
+
 ###### MESSAGE ######
 
 Header header
@@ -13,9 +14,9 @@ uint16 right_encoder
 bool ischarging
 uint8 battery_percent
 
-uint16 left_echo
-uint16 center_echo
-uint16 right_echo
+uint16 front_echo
+uint16 rear_echo
+
 
 uint16 front_infrared
 uint16 rear_infrared

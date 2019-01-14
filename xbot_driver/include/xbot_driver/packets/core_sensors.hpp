@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file include/xbot_driver/packets/core_sensors.hpp
  *
  * @brief Core sensor packet payloads.
@@ -39,9 +39,8 @@ public:
   CoreSensors() : packet_handler::payloadBase(false, 30),
     queue_front_infrared(25),
     queue_rear_infrared(25),
-    queue_left_echo(25),
-    queue_center_echo(25),
-    queue_right_echo(25)
+    queue_front_echo(25),
+    queue_rear_echo(25)
     {};
 
   struct Data {
@@ -49,9 +48,9 @@ public:
     uint16_t right_encoder;
     bool is_charging;
     unsigned char power_percent;
-    uint16_t left_echo;
-    uint16_t center_echo;
-    uint16_t right_echo;
+    uint16_t front_echo;
+    uint16_t rear_echo;
+//    uint16_t right_echo;
     uint16_t front_infrared;
     uint16_t rear_infrared;
 
@@ -70,9 +69,9 @@ public:
   lqueue <uint> queue_rear_infrared;
 
 //  echo queue
-  lqueue <uint> queue_left_echo;
-  lqueue <uint> queue_center_echo;
-  lqueue <uint> queue_right_echo;
+  lqueue <uint> queue_front_echo;
+  lqueue <uint> queue_rear_echo;
+
 
 
 

@@ -12,11 +12,7 @@ add_message_files(DIRECTORY msg
 											RawImu.msg
 											Battery.msg
                       KeyboardInput.msg
-                      XbotState.msg
-                      NaviState.msg
-                      FaceResult.msg
-                      XbotPose.msg
-                 )
+                      )
 
 add_action_files(DIRECTORY action
                      FILES AutoDocking.action

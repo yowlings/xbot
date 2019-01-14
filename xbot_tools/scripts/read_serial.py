@@ -14,7 +14,7 @@ def recv(serial):
 	return data
 
 if __name__ == '__main__':
-	serial = serial.Serial('/dev/xbot', 115200, timeout=0.5)  #/dev/ttyUSB0
+	serial = serial.Serial('/dev/ttyUSB0', 115200, timeout=0.5)  #/dev/ttyUSB0
 	if serial.isOpen() :
 		print("open success")
 	else :

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2012, Yujin Robot.
  * All rights reserved.
  *
@@ -100,9 +100,8 @@ void XbotRos::publishCoreSensor()
       core_sensor.right_encoder = data.right_encoder;
       core_sensor.battery_percent = data.power_percent;
       core_sensor.ischarging = data.is_charging;
-      core_sensor.left_echo = data.left_echo;
-      core_sensor.center_echo = data.center_echo;
-      core_sensor.right_echo = data.right_echo;
+      core_sensor.front_echo = data.front_echo;
+      core_sensor.rear_echo = data.rear_echo;
       core_sensor.front_infrared = data.front_infrared;
       core_sensor.rear_infrared = data.rear_infrared;
       core_sensor.error_state = data.error_state;
@@ -129,12 +128,10 @@ void XbotRos::publishEchoData()
       CoreSensors::Data data_echo = xbot.getCoreSensorData();
       msg.header.frame_id = "echo_link";
       msg.header.stamp = ros::Time::now();
-      msg.left = data_echo.left_echo;
-      msg.center = data_echo.center_echo;
-      msg.right = data_echo.right_echo;
-      msg.left_near = (data_echo.left_echo<1600);
-      msg.center_near = (data_echo.center_echo<1600);
-      msg.right_near = (data_echo.right_echo<1600);
+      msg.front = data_echo.front_echo;
+      msg.rear = data_echo.rear_echo;
+      msg.front_near = (data_echo.front_echo<1600);
+      msg.rear_near = (data_echo.rear_echo<1600);
       echo_data_publisher.publish(msg);
 
     }

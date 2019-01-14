@@ -1,7 +1,7 @@
 # Overview
 Xbot is a double wheeled mobile robot which is suitable for most of common sensors and hardware such as Microsoft's Kinect and Asus' Xtion Pro and RPlidar. Users can easily integrate their own customized hardware and applications to the development platform by using ROS and the related series tutorials. For more details about xbot robot, please visit [http://robots.ros.org/xbot/](http://robots.ros.org/xbot/)
 
-![image](xbot.jpg)
+![image](https://github.com/yowlings/xbot/blob/master/xbot.jpg)
 
 # Packages
 This git repo contains 4 ROS packages for making up a complete xbot ROS bringup. They are xbot_driver, xbot_dock_drive, xbot_ftdi, xbot_keyop, xbot_msgs,xbot_node and xbot_safety_controller.

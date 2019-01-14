@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file /xbot_driver/src/driver/core_sensors.cpp
  *
  * @brief Implementation of the core sensor packet data.
@@ -83,22 +83,23 @@ bool CoreSensors::deserialise(ecl::PushAndPop<unsigned char> & byteStream)
 
 
 
-//  前置三路超声，均值滤波，25个邻域数据取均值，每秒50帧数据，取0.5s内的平均
+//  前后各一路超声，均值滤波，25个邻域数据取均值，每秒50帧数据，取0.5s内的平均
+
+  buildVariable(tempvariable, byteStream); //front_left not used
 
   buildVariable(tempvariable, byteStream);
-  queue_left_echo.lpush(tempvariable);
-  data.left_echo = queue_left_echo.mean();
+  queue_front_echo.lpush(tempvariable);
+  data.front_echo = queue_front_echo.mean();
 
-  buildVariable(tempvariable, byteStream);
-  queue_center_echo.lpush(tempvariable);
-  data.center_echo = queue_center_echo.mean();
+  buildVariable(tempvariable, byteStream); //front_right not used
 
-  buildVariable(tempvariable, byteStream);
-  queue_right_echo.lpush(tempvariable);
-  data.right_echo = queue_right_echo.mean();
 
   buildVariable(tempvariable, byteStream);//rear_left not used
-  buildVariable(tempvariable, byteStream);//rear_center not used
+
+  buildVariable(tempvariable, byteStream);
+  queue_rear_echo.lpush(tempvariable);
+  data.rear_echo = queue_rear_echo.mean();
+
   buildVariable(tempvariable, byteStream);//rear_right not used
 
 //  前后各一路红外，均值滤波，25个邻域数据取均值，每秒50帧数据，取0.5s内的平均

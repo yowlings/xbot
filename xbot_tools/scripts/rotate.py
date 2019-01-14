@@ -2,7 +2,7 @@
 # coding=utf-8
 ######################################################################################
 #> File Name: auto_rotate.py
-#> Author:Rocwang
+#> Author:Rocwang 
 #> Mail: yowlings@gmail.com;
 #> Github:https://github.com/yowlings
 #> Created Time: 2018年06月14日 星期四 16时14分27秒
@@ -21,7 +21,7 @@ class multi_keybroad_handle():
 		try:
 			while not rospy.is_shutdown():
 				self.cmd = Twist()
-				self.cmd.angular.z = 3.1415926*60/180
+				self.cmd.angular.z = 3.1415926*30/180
 				self.pub.publish(self.cmd)
 				r.sleep()
 
