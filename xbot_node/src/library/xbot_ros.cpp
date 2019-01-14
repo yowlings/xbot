@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2012, Yujin Robot.
  * All rights reserved.
  *
@@ -58,7 +58,7 @@ namespace xbot
  * Make sure you call the init() method to fully define this node.
  */
 XbotRos::XbotRos(std::string& node_name) :
-    name(node_name), cmd_vel_timed_out_(false), base_serial_timed_out_(false),sensor_serial_timed_out_(false),
+    name(node_name),cmd_vel_timed_out_(false), base_serial_timed_out_(false),sensor_serial_timed_out_(false),
     base_slot_stream_data(&XbotRos::processBaseStreamData, *this),
     sensor_slot_stream_data(&XbotRos::processSensorStreamData, *this)
 {
@@ -308,7 +308,7 @@ void XbotRos::advertiseTopics(ros::NodeHandle& nh)
 
   /*********************
   ** Xbot publisher init
-  **********************/  
+  **********************/
   core_sensor_publisher = nh.advertise < xbot_msgs::CoreSensor > ("sensors/core", 100);
   extra_sensor_publisher = nh.advertise <xbot_msgs::ExtraSensor> ("sensors/extra", 100);
   yaw_platform_state_publisher = nh.advertise<std_msgs::Int8>("sensors/yaw_platform_degree", 100);
@@ -320,7 +320,7 @@ void XbotRos::advertiseTopics(ros::NodeHandle& nh)
   echo_data_publisher = nh.advertise < xbot_msgs::Echo > ("sensors/echo", 100);
   infrared_data_publisher = nh.advertise < xbot_msgs::InfraRed >("sensors/infrared", 100);
 
-  imu_data_publisher = nh.advertise < xbot_msgs::Imu > ("sensors/imu_data", 100);
+  imu_data_publisher = nh.advertise < sensor_msgs::Imu > ("sensors/imu_data", 100);
   raw_imu_data_publisher = nh.advertise < xbot_msgs::RawImu > ("sensors/raw_imu_data", 100);
   robot_state_publisher = nh.advertise <xbot_msgs::XbotState> ("xbot/state",100);
 }

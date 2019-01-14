@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file src/driver/xbot.cpp
  *
  * @brief Implementation for the xbot device driver.
@@ -56,7 +56,7 @@ Xbot::Xbot() :
     , sensor_is_connected(false)
     , base_is_alive(false)
     , sensor_is_alive(false)
-    , heading_offset(0.0)
+    , heading_offset(0.0/0.0)
     , Power(1)
 
 {
@@ -448,6 +448,10 @@ void Xbot::sensor_spin()
           if( !sensors.deserialise(sensor_data_buffer) )
               { std::cout<<"fixed"<<std::endl;
             sensor_fixPayload(sensor_data_buffer); break; }
+          if(std::isnan(heading_offset) == true)
+          {
+            heading_offset = static_cast<double>(sensors.data.yaw)* ecl::pi / 180.0;
+          }
           sensor_sig_stream_data.emit();
 
       }
@@ -511,8 +515,8 @@ float Xbot::getHeading() const
   ecl::Angle<float>heading;
 //    float heading;
   // raw data angles are in tens of a degree, convert to radians.
-  heading = (static_cast<float>(sensors.data.yaw) / 10.0)*ecl::pi / 180.0;
-  std::cout<<"heading:"<<heading<<" | heading_offset:"<<heading_offset<<std::endl;
+  heading = (static_cast<float>(sensors.data.yaw))*ecl::pi / 180.0;
+  //std::cout<<"heading:"<<heading<<" | heading_offset:"<<heading_offset<<std::endl;
 
   return ecl::wrap_angle(heading - heading_offset);
 }
@@ -524,7 +528,7 @@ int Xbot::getDebugSensors() const
 float Xbot::getAngularVelocity() const
 {
   // raw data angles are in hundredths of a degree, convert to radians.
-  return (static_cast<float>(sensors.data.gyro_z) / 10.0) * ecl::pi / 180.0;
+  return static_cast<float>(sensors.data.gyro_z);
 }
 
 
@@ -547,7 +551,7 @@ void Xbot::resetOdometry()
   diff_drive.reset();
 
   // Issue #274: use current imu reading as zero heading to emulate reseting gyro
-  heading_offset = (static_cast<float>(sensors.data.yaw) / 10.0) * ecl::pi / 180.0;
+  heading_offset = (static_cast<float>(sensors.data.yaw)) * ecl::pi / 180.0;
 }
 
 void Xbot::getWheelJointStates(float &wheel_left_angle, float &wheel_left_angle_rate, float &wheel_right_angle,

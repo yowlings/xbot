@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2012, Yujin Robot.
  * All rights reserved.
  *
@@ -71,9 +71,9 @@
 
 #include <xbot_driver/xbot.hpp>
 #include <xbot_msgs/XbotState.h>
-#include <xbot_msgs/Imu.h>
 #include <xbot_msgs/RawImu.h>
 
+#include <geometry_msgs/Quaternion.h>
 #include "odometry.hpp"
 
 /*****************************************************************************

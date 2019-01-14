@@ -280,23 +280,34 @@ void XbotRos::publishExtraSensor()
 void XbotRos::publishInertia()
 {
   if ( ros::ok() ) {
-    if (imu_data_publisher.getNumSubscribers() > 0) {
-      xbot_msgs::Imu imu_msg;
 
-      Sensors::Data data = xbot.getExtraSensorsData();
+    sensor_msgs::Imu imu_msg;
 
-      imu_msg.header.stamp = ros::Time::now();
-      imu_msg.yaw = data.yaw;
-      imu_msg.pitch = data.pitch;
-      imu_msg.roll = data.roll;
-      imu_msg.q1 = data.q1;
-      imu_msg.q2 = data.q2;
-      imu_msg.q3 = data.q3;
-      imu_msg.q4 = data.q4;
-      imu_data_publisher.publish(imu_msg);
+    Sensors::Data data = xbot.getExtraSensorsData();
+    imu_msg.header.stamp = ros::Time::now();
+    imu_msg.header.frame_id = "imu_link";
+    imu_msg.orientation = tf::createQuaternionMsgFromYaw(xbot.getHeading());
+    imu_msg.orientation_covariance[0] = 10.01;
+    imu_msg.orientation_covariance[4] = 10.01;
+    imu_msg.orientation_covariance[8] = 10.01;
+
+    imu_msg.angular_velocity.x = data.gyro_x;
+    imu_msg.angular_velocity.y = data.gyro_y;
+    imu_msg.angular_velocity.z = data.gyro_z;
+    imu_msg.angular_velocity_covariance[0] = 10.01;
+    imu_msg.angular_velocity_covariance[4] = 10.01;
+    imu_msg.angular_velocity_covariance[8] = 10.01;
+
+    imu_msg.linear_acceleration.x = data.acc_x;
+    imu_msg.linear_acceleration.y = data.acc_y;
+    imu_msg.linear_acceleration.z = data.acc_z;
+    imu_msg.linear_acceleration_covariance[0] = 0.01;
+    imu_msg.linear_acceleration_covariance[4] = 0.01;
+    imu_msg.linear_acceleration_covariance[8] = 0.01;
+
+    imu_data_publisher.publish(imu_msg);
 
 
-    }
   }
 }
 

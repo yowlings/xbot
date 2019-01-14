@@ -8,7 +8,6 @@ add_message_files(DIRECTORY msg
 											ExtraSensor.msg
 											Echo.msg
 											InfraRed.msg
-											Imu.msg
 											RawImu.msg
 											Battery.msg
                       KeyboardInput.msg
