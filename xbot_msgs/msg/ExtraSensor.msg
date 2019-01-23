@@ -1,4 +1,4 @@
-Header header
+﻿Header header
 uint8 yaw_platform_degree
 uint8 pitch_platform_degree
 bool sound_is_mutex
@@ -19,6 +19,7 @@ float32 q2
 float32 q3
 float32 q4
 uint8 error_state
-uint16 time_stamp
+uint8 version
+uint32 time_stamp
 
 

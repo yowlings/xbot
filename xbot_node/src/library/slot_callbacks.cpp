@@ -269,6 +269,7 @@ void XbotRos::publishExtraSensor()
       extra_sensor.q4 = data.q4;
       extra_sensor.error_state = data.error_status;
       extra_sensor.time_stamp = data.timestamp;
+      extra_sensor.version = data.version;
       extra_sensor_publisher.publish(extra_sensor);
 
 
@@ -286,14 +287,14 @@ void XbotRos::publishInertia()
     Sensors::Data data = xbot.getExtraSensorsData();
     imu_msg.header.stamp = ros::Time::now();
     imu_msg.header.frame_id = "imu_link";
-    imu_msg.orientation = tf::createQuaternionMsgFromYaw(xbot.getHeading());
+    imu_msg.orientation = tf::createQuaternionMsgFromYaw(-xbot.getHeading());
     imu_msg.orientation_covariance[0] = 10.01;
     imu_msg.orientation_covariance[4] = 10.01;
     imu_msg.orientation_covariance[8] = 10.01;
 
     imu_msg.angular_velocity.x = data.gyro_x;
     imu_msg.angular_velocity.y = data.gyro_y;
-    imu_msg.angular_velocity.z = data.gyro_z;
+    imu_msg.angular_velocity.z = -data.gyro_z;
     imu_msg.angular_velocity_covariance[0] = 10.01;
     imu_msg.angular_velocity_covariance[4] = 10.01;
     imu_msg.angular_velocity_covariance[8] = 10.01;

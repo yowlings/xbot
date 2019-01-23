@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file include/xbot_driver/packets/core_sensors.hpp
  *
  * @brief Imu sensor packet payloads.
@@ -59,7 +59,8 @@ public:
     float q3;
     float q4;
     unsigned char error_status;
-    unsigned short timestamp;
+    unsigned char version;
+    uint32_t timestamp;
 
 
   } data;
