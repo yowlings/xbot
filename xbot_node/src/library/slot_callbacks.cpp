@@ -269,7 +269,6 @@ void XbotRos::publishExtraSensor()
       extra_sensor.q4 = data.q4;
       extra_sensor.error_state = data.error_status;
       extra_sensor.time_stamp = data.timestamp;
-      extra_sensor.version = data.version;
       extra_sensor_publisher.publish(extra_sensor);
 
 

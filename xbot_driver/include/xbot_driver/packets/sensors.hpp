@@ -59,8 +59,7 @@ public:
     float q3;
     float q4;
     unsigned char error_status;
-    unsigned char version;
-    uint32_t timestamp;
+    uint16_t timestamp;
 
 
   } data;
