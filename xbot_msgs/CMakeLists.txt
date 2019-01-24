@@ -12,8 +12,7 @@ add_message_files(DIRECTORY msg
 				Battery.msg
 				KeyboardInput.msg
 				XbotState.msg
-				
-					)
+				)
 
 add_action_files(DIRECTORY action
 					FILES AutoDocking.action
