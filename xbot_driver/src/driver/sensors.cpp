@@ -68,7 +68,7 @@ bool Sensors::deserialise(ecl::PushAndPop<unsigned char> & byteStream)
 //  音量控制
   buildVariable(data.sound_status, byteStream);
 //  IMU9250九轴裸数据,由于老版本的电路板9250芯片向下，因此z轴y轴都为反向
-  int16_t tmp;
+  float tmp;
   buildVariable(tmp, byteStream);
   data.acc_x = tmp*0.00006086*9.8;
   buildVariable(tmp, byteStream);

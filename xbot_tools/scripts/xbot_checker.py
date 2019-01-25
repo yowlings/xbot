@@ -33,7 +33,7 @@ label_PCB1 = 'aa552d'
 ss_PCB1 = ''
 
 PCB2_pluged=False
-label_PCB2 = 'aa5535'
+label_PCB2 = 'aa5547'
 ss_PCB2 = ''
 
 
@@ -124,7 +124,7 @@ for i in range(0, port_num):
 
 	if(label_PCB2 in ss ):
 		PCB2_dev_name = dev_name
-		ss_PCB2 = 'aa55'+ss.split('aa55')[1]		
+		ss_PCB2 = 'aa55'+ss.split('aa55')[1]
 		PCB2_pluged = True
 
 	elif(label_PCB1 in ss):
@@ -148,11 +148,11 @@ else:
 def check(s):
 	l=len(s)
 	i=1
-	x=int(ss_PCB2[0:2],16)
+	x=int(s[0:2],16)
 	while i<l/2-1:
-		x=x^int(ss_PCB2[i*2:i*2+2],16)
+		x=x^int(s[i*2:i*2+2],16)
 		i=i+1
-	if x==int(ss_PCB2[-2:],16):
+	if x==int(s[-2:],16):
 		return True
 	else:
 		return False
@@ -220,26 +220,26 @@ if(PCB2_pluged):
 
 			volume = struct.unpack('B', payload[6:8].decode('hex'))[0]
 
-			acc_x = struct.unpack('<f', payload[8:16].decode('hex'))[0]
-			acc_y = struct.unpack('<f', payload[16:24].decode('hex'))[0]
-			acc_z = struct.unpack('<f', payload[24:32].decode('hex'))[0]
-			gyro_x = struct.unpack('<f', payload[32:40].decode('hex'))[0]
-			gyro_y = struct.unpack('<f', payload[40:48].decode('hex'))[0]
-			gyro_z = struct.unpack('<f', payload[48:56].decode('hex'))[0]
-			mag_x = struct.unpack('<f', payload[56:64].decode('hex'))[0]
-			mag_y = struct.unpack('<f', payload[64:72].decode('hex'))[0]
-			mag_z = struct.unpack('<f', payload[72:80].decode('hex'))[0]
+			acc_x = struct.unpack('<h', payload[8:12].decode('hex'))[0]
+			acc_y = struct.unpack('<h', payload[12:16].decode('hex'))[0]
+			acc_z = struct.unpack('<h', payload[16:20].decode('hex'))[0]
+			gyro_x = struct.unpack('<h', payload[20:24].decode('hex'))[0]
+			gyro_y = struct.unpack('<h', payload[24:28].decode('hex'))[0]
+			gyro_z = struct.unpack('<h', payload[28:32].decode('hex'))[0]
+			mag_x = struct.unpack('<h', payload[32:36].decode('hex'))[0]
+			mag_y = struct.unpack('<h', payload[36:40].decode('hex'))[0]
+			mag_z = struct.unpack('<h', payload[40:44].decode('hex'))[0]
 
-			yaw = -struct.unpack('<f', payload[80:88].decode('hex'))[0]
-			pitch = struct.unpack('<f', payload[88:96].decode('hex'))[0]
-			roll = struct.unpack('<f', payload[96:104].decode('hex'))[0]
-			q1 = struct.unpack('<f', payload[104:112].decode('hex'))[0]
-			q2 = struct.unpack('<f', payload[112:120].decode('hex'))[0]
-			q3 = struct.unpack('<f', payload[120:128].decode('hex'))[0]
-			q4 = struct.unpack('<f', payload[128:136].decode('hex'))[0]
+			yaw = -struct.unpack('<f', payload[44:52].decode('hex'))[0]
+			pitch = struct.unpack('<f', payload[52:60].decode('hex'))[0]
+			roll = struct.unpack('<f', payload[60:68].decode('hex'))[0]
+			q1 = struct.unpack('<f', payload[68:76].decode('hex'))[0]
+			q2 = struct.unpack('<f', payload[76:84].decode('hex'))[0]
+			q3 = struct.unpack('<f', payload[84:92].decode('hex'))[0]
+			q4 = struct.unpack('<f', payload[92:100].decode('hex'))[0]
 			
-			error_status = int(payload[136:138])
-			time_stamp = struct.unpack('<H', payload[138:142].decode('hex'))[0]
+			error_status = struct.unpack('B', payload[100:102].decode('hex'))[0]
+			time_stamp = struct.unpack('<H', payload[102:106].decode('hex'))[0]
 			print '\033[1;32m PCB2数据解析通过\033[0m'
 
 	else:
@@ -262,28 +262,44 @@ else:
 
 # print '#######################################################################'
 # print '第五步：获取对应设备的序列号，将串口映射表文件写入系统的/etc/udev/rules.d/目录下'
+print '\033[1;34m 7、获取对应设备的序列号，将串口映射表文件写入系统的/etc/udev/rules.d/目录下 \033[0m'
+if(PCB1_pluged):
+	cmd = 'udevadm info -a -n '+PCB1_dev_name+ '|grep ATTRS{serial}'
+	(status, output) = commands.getstatusoutput(cmd)
+	PCB1_serial = output.split('"')[1]
+	print 'PCB1(PCB1)芯片序列号：'+PCB1_serial
 
-# if(PCB1_pluged):
-# 	cmd = 'udevadm info -a -n '+PCB1_dev_name+ '|grep AK0'
-# 	(status, output) = commands.getstatusoutput(cmd)
-# 	PCB1_serial = output.split('"')[1]
-# 	print 'PCB1(PCB1)芯片序列号：'+PCB1_serial
-# else:
-# 	print 'PCB1(PCB1)设备未插入'
+	f=open("../udev/71-xbot.rules",'r')  #your path!
+	s= f.read()
+	f.close()
+	s= s+',ATTRS{serial}==\"'+PCB1_serial+'\"'
+	f=open("/etc/udev/rules.d/71-xbot.rules",'w')
+	f.write(s)
+	f.close()
+	print '\033[1;32m PCB1端口映射文件写入系统成功\033[0m'
+else:
+	print 'PCB1(PCB1)设备未插入'
 
-# if(PCB2_pluged):
-# 	cmd = 'udevadm info -a -n '+PCB2_dev_name+ '|grep ATTRS{serial}'
-# 	(status, output) = commands.getstatusoutput(cmd)
+if(PCB2_pluged):
+	cmd = 'udevadm info -a -n '+PCB2_dev_name+ '|grep ATTRS{serial}'
+	(status, output) = commands.getstatusoutput(cmd)
 
-# 	PCB2_serial = output.split('"')[1]
-# 	print 'PCB2(PCB2)芯片序列号：'+PCB2_serial
-# else:
-# 	print 'PCB2(PCB2)设备未插入'
+	PCB2_serial = output.split('"')[1]
+	print 'PCB2(PCB2)芯片序列号：'+PCB2_serial
+
+	f=open("../udev/72-sensor.rules",'r')  #your path!
+	s= f.read()
+	f.close()
+	s= s+',ATTRS{serial}==\"'+PCB2_serial+'\"'
+	f=open("/etc/udev/rules.d/72-sensor.rules",'w')
+	f.write(s)
+	f.close()
+	print '\033[1;32m PCB2端口映射文件写入系统成功\033[0m'
+
+else:
+	print 'PCB2(PCB2)设备未插入'
 
 
 
 
 
-
-# (status, output) = commands.getstatusoutput('udevadm info -a -n /dev/ttyUSB1 |grep AK0')
-# print output
