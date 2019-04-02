@@ -19,7 +19,8 @@ float32 q2
 float32 q3
 float32 q4
 uint8 error_state
-uint16 time_stamp
+uint32 time_stamp
+uint8 version
 
 
 

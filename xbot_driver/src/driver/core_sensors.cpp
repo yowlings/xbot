@@ -133,6 +133,9 @@ bool CoreSensors::deserialise(ecl::PushAndPop<unsigned char> & byteStream)
 //  故障状态显示
   buildVariable(data.error_state, byteStream);
 
+  //软件版本
+  buildVariable(data.version, byteStream);
+
 
   return true;
 }

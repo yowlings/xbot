@@ -58,8 +58,10 @@ public:
     float left_motor_current;
     float right_motor_current;
 
-    unsigned short timestamp;
+    uint32_t timestamp;
     uint16_t error_state;
+
+    uint8_t version;
 
   } data;
 

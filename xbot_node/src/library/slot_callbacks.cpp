@@ -109,6 +109,7 @@ void XbotRos::publishCoreSensor()
       core_sensor.right_motor_current = data.right_motor_current;
       core_sensor.motor_disabled = data.stop_button_state;
       core_sensor.time_stamp = data.timestamp;
+      core_sensor.version = data.version;
 
       core_sensor_publisher.publish(core_sensor);
 
@@ -218,6 +219,7 @@ void XbotRos::publishRobotState()
         msg.echo_plug_error = core_data.error_state;
         msg.infrared_plug_error = core_data.error_state;
         msg.motor_error = core_data.error_state;
+        msg.version = core_data.version;
 
 
         robot_state_publisher.publish(msg);
@@ -269,6 +271,7 @@ void XbotRos::publishExtraSensor()
       extra_sensor.q4 = data.q4;
       extra_sensor.error_state = data.error_status;
       extra_sensor.time_stamp = data.timestamp;
+      extra_sensor.version = data.version;
       extra_sensor_publisher.publish(extra_sensor);
 
 

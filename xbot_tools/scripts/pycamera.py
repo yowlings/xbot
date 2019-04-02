@@ -16,7 +16,7 @@ import numpy as np
 
 
 cv2.namedWindow("capture")
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(2)
 while(1):
   # get a frame
 	ret, frame = cap.read()

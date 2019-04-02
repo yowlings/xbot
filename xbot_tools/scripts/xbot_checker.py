@@ -29,11 +29,11 @@ from time import sleep
 rplidar_pluged = False
 
 PCB1_pluged = False
-label_PCB1 = 'aa552d'
+label_PCB1 = 'aa5530'
 ss_PCB1 = ''
 
 PCB2_pluged=False
-label_PCB2 = 'aa5547'
+label_PCB2 = 'aa5538'
 ss_PCB2 = ''
 
 

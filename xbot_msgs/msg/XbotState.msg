@@ -6,3 +6,5 @@ bool robot_is_alive
 uint8 echo_plug_error
 uint8 infrared_plug_error
 uint8 motor_error
+
+uint8 version
