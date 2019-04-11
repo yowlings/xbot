@@ -50,7 +50,7 @@ build:
   script:
     - cd xbot_bringup
     - mk-build-deps
-    - sudo dpkg -i *.deb
+    - dpkg -i *.deb
     - dpkg-buildpackage -rfackeroot -uc -us
   only:
     - imudown
