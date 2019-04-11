@@ -12,7 +12,7 @@ before_script:
    - wget https://isrc.iscas.ac.cn/mirror/help/mirror/xlab_ubuntu16.04.list -O /etc/apt/sources.list.d/xlab_ubuntu16.04.list
    - sh -c 'echo "deb https://isrc.iscas.ac.cn/mirror/ros/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
    - wget -qO - https://isrc.iscas.ac.cn/mirror/xbot/xbot.gpg | apt-key add -
-   - wget https://isrc.iscas.ac.cn/wiki/mirror/xbot-xenial-test-amd64.list -O /etc/apt/sources.list.d/xbot-xenial-test-amd64.list
+   - wget https://isrc.iscas.ac.cn/mirror/help/mirror/xbot-xenial-test-amd64.list -O /etc/apt/sources.list.d/xbot-xenial-test-amd64.list
    - apt-get update -y
    - apt-get install apt-transport-https
    - apt-get install -y openssh-client scp dpkg-dev devscripts build-essential equivs
