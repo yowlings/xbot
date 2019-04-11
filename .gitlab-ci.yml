@@ -10,11 +10,12 @@ before_script:
    - apt-get install apt-transport-https wget lsb-release -y
    - rm /etc/apt/sources.list
    - wget https://isrc.iscas.ac.cn/mirror/help/mirror/xlab_ubuntu16.04.list -O /etc/apt/sources.list.d/xlab_ubuntu16.04.list
+   - wget -qO - https://isrc.iscas.ac.cn/mirror/ros/ros.gpg | apt-key add -
    - sh -c 'echo "deb https://isrc.iscas.ac.cn/mirror/ros/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
    - wget -qO - https://isrc.iscas.ac.cn/mirror/xbot/xbot.gpg | apt-key add -
    - wget https://isrc.iscas.ac.cn/mirror/help/mirror/xbot-xenial-test-amd64.list -O /etc/apt/sources.list.d/xbot-xenial-test-amd64.list
    - apt-get update -y
-   - apt-get install -y openssh-client scp dpkg-dev devscripts build-essential equivs
+   - apt-get install -y openssh-client dpkg-dev devscripts build-essential equivs
 
    ##
    ## Run ssh-agent (inside the build environment)
