@@ -50,7 +50,10 @@ build:
   script:
     - cd xbot_bringup
     - mk-build-deps
-    - apt install ./*.deb
+    - apt install -y ./*.deb
     - dpkg-buildpackage -rfackeroot -uc -us
+    - scp -P 1022 ../*.deb reprepro@192.168.8.12:/data/tmpdeb/
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro includedeb xenial_test /data/tmpdeb/*.deb
+    - ssh -p 1022 reprepro@192.168.8.12 rm /data/tmpdeb/*.deb
   only:
     - imudown
