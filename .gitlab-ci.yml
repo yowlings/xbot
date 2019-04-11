@@ -15,7 +15,7 @@ before_script:
    - wget -qO - https://isrc.iscas.ac.cn/mirror/xbot/xbot.gpg | apt-key add -
    - wget https://isrc.iscas.ac.cn/mirror/help/mirror/xbot-xenial-test-amd64.list -O /etc/apt/sources.list.d/xbot-xenial-test-amd64.list
    - apt-get update -y
-   - apt-get install -y openssh-client dpkg-dev devscripts build-essential equivs
+   - apt-get install -y openssh-client dpkg-dev devscripts build-essential equivs fakeroot
 
    ##
    ## Run ssh-agent (inside the build environment)
