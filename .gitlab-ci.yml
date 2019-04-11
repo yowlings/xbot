@@ -50,10 +50,60 @@ build:
   script:
     - cd xbot_bringup
     - mk-build-deps
-    - apt install -y ./*.deb
+    - apt install -y ./ros-kinetic-xbot-bringup-build-deps*.deb
     - dpkg-buildpackage -rfakeroot -uc -us
-    - scp -P 1022 ../*.deb reprepro@192.168.8.12:/data/tmpdeb/
-    - ssh -p 1022 reprepro@192.168.8.12 reprepro  --delete includedeb xenial_test /data/tmpdeb/*.deb
-    - ssh -p 1022 reprepro@192.168.8.12 rm /data/tmpdeb/*.deb
+    - scp -P 1022 ../ros-kinetic-xbot-bringup_*.deb reprepro@192.168.8.12:/data/tmpdeb/
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-bringup
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-bringup_*.deb
+    - cd ../
+    - cd xbot_description
+    - mk-build-deps
+    - apt install -y ./ros-kinetic-xbot-description-build-deps*.deb
+    - dpkg-buildpackage -rfakeroot -uc -us
+    - scp -P 1022 ../ros-kinetic-xbot-description_*.deb reprepro@192.168.8.12:/data/tmpdeb/
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-description
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-description_*.deb
+    - cd ../
+    - cd xbot_driver
+    - mk-build-deps
+    - apt install -y ./ros-kinetic-xbot-driver-build-deps*.deb
+    - dpkg-buildpackage -rfakeroot -uc -us
+    - scp -P 1022 ../ros-kinetic-xbot-driver_*.deb reprepro@192.168.8.12:/data/tmpdeb/
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-driver
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-driver_*.deb
+    - cd ../
+    - cd xbot_msgs
+    - mk-build-deps
+    - apt install -y ./ros-kinetic-xbot-msgs-build-deps*.deb
+    - dpkg-buildpackage -rfakeroot -uc -us
+    - scp -P 1022 ../ros-kinetic-xbot-msgs_*.deb reprepro@192.168.8.12:/data/tmpdeb/
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-msgs
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-msgs_*.deb
+    - cd ../
+    - cd xbot_tools
+    - mk-build-deps
+    - apt install -y ./ros-kinetic-xbot-tools-build-deps*.deb
+    - dpkg-buildpackage -rfakeroot -uc -us
+    - scp -P 1022 ../ros-kinetic-xbot-tools_*.deb reprepro@192.168.8.12:/data/tmpdeb/
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-tools
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-tools_*.deb
+    - cd ../
+    - cd xbot_safety_controller
+    - mk-build-deps
+    - apt-get update -y
+    - apt install -y ./ros-kinetic-xbot-safety-controller-build-deps*.deb
+    - dpkg-buildpackage -rfakeroot -uc -us
+    - scp -P 1022 ../ros-kinetic-xbot-safety-controller_*.deb reprepro@192.168.8.12:/data/tmpdeb/
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-safety-controller
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-safety-controller_*.deb
+    - cd ../
+    - cd xbot_node
+    - mk-build-deps
+    - apt-get update -y
+    - apt install -y ./ros-kinetic-xbot-node-build-deps*.deb
+    - dpkg-buildpackage -rfakeroot -uc -us
+    - scp -P 1022 ../ros-kinetic-xbot-node_*.deb reprepro@192.168.8.12:/data/tmpdeb/
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-node
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-node_*.deb
   only:
     - imudown
