@@ -213,3 +213,10 @@ target_link_libraries(kalman_filter ${catkin_LIBRARIES})
 install(TARGETS kalman_filter
 		  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+install(DIRECTORY scripts
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+install(DIRECTORY udev
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+
