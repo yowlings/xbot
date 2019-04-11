@@ -82,6 +82,7 @@ build:
     - cd ../
     - cd xbot_tools
     - mk-build-deps
+    - apt-get update -y
     - apt install -y ./ros-kinetic-xbot-tools-build-deps*.deb
     - dpkg-buildpackage -rfakeroot -uc -us
     - scp -P 1022 ../ros-kinetic-xbot-tools_*.deb reprepro@192.168.8.12:/data/tmpdeb/
