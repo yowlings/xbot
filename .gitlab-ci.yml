@@ -48,7 +48,7 @@ build:
   tags:
     - xeniel
   script:
-    - cd xbot/xbot_bringup
+    - cd xbot_bringup
     - mk-build-deps
     - sudo dpkg -i *.deb
     - dpkg-buildpackage -rfackeroot -uc -us
