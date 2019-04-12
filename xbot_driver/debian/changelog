@@ -1,4 +1,4 @@
-ros-kinetic-xbot-driver (1.2.1) xenial; urgency=high
+ros-kinetic-xbot-driver (1.2.1) stable; urgency=high
 
   * isnan -> std::isnan
 
