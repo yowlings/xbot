@@ -48,7 +48,7 @@ before_script:
 build:
   stage: build
   tags:
-    - xeniel
+    - xenial
   script:
     - mkdir public
     - cd xbot_bringup
