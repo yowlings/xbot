@@ -49,6 +49,7 @@ build:
   stage: build
   tags:
     - xenial
+    - deb
   script:
     - mkdir public
     - cd xbot_bringup
