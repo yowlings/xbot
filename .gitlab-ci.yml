@@ -1,92 +1,53 @@
-# requiring the environment of NodeJS 10
-image: ubuntu:16.04
-
-before_script:
-  ##
-  ## Install ssh-agent if not already installed, it is required by Docker.
-  ## (change apt-get to yum if you use an RPM-based image)
-  ##
-  - rm /etc/apt/sources.list
-  - echo deb http://isrc.iscas.ac.cn/mirror/ubuntu/ xenial main restricted universe multiverse > /etc/apt/sources.list
-  - echo deb http://isrc.iscas.ac.cn/mirror/ubuntu/ xenial-updates main restricted universe multiverse >> /etc/apt/sources.list
-  - echo deb http://isrc.iscas.ac.cn/mirror/ubuntu/ xenial-security main restricted universe multiverse >> /etc/apt/sources.list
-  - apt-get update -y
-  - apt-get install apt-transport-https wget lsb-release -y
-  - wget -qO - https://isrc.iscas.ac.cn/mirror/ros/ros.gpg | apt-key add -
-  - sh -c 'echo "deb http://isrc.iscas.ac.cn/mirror/ros/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-  - wget -qO - https://isrc.iscas.ac.cn/mirror/xbot/xbot.gpg | apt-key add -
-  - wget https://isrc.iscas.ac.cn/mirror/help/mirror/xbot-xenial-test-amd64.list -O /etc/apt/sources.list.d/xbot-xenial-test-amd64.list
-  - apt-get update -y
-  - apt-get install -y openssh-client dpkg-dev devscripts build-essential equivs fakeroot
-
-  ##
-  ## Run ssh-agent (inside the build environment)
-  ##
-  - eval $(ssh-agent -s)
-
-  ##
-  ## Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
-  ## We're using tr to fix line endings which makes ed25519 keys work
-  ## without extra base64 encoding.
-  ## https://gitlab.com/gitlab-examples/ssh-private-key/issues/1#note_48526556
-  ##
-  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-
-  ##
-  ## Create the SSH directory and give it the right permissions
-  ##
-  - mkdir -p ~/.ssh
-  - chmod 700 ~/.ssh
-
-  ##
-  ## Assuming you created the SSH_KNOWN_HOSTS variable, uncomment the
-  ## following two lines.
-  ##
-  - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-  - chmod 644 ~/.ssh/known_hosts
-
-build:
+buildonxenial:
+  image: ubuntu:16.04
   stage: build
   tags:
     - xenial
     - deb
   script:
+    - export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true
+    - rm /etc/apt/sources.list
+    - echo deb http://isrc.iscas.ac.cn/mirror/ubuntu/ xenial main restricted universe multiverse > /etc/apt/sources.list
+    - echo deb http://isrc.iscas.ac.cn/mirror/ubuntu/ xenial-updates main restricted universe multiverse >> /etc/apt/sources.list
+    - echo deb http://isrc.iscas.ac.cn/mirror/ubuntu/ xenial-security main restricted universe multiverse >> /etc/apt/sources.list
+    - apt-get update -y
+    - apt-get install apt-transport-https wget lsb-release gnupg -y
+    - wget -qO - https://isrc.iscas.ac.cn/mirror/ros/ros.gpg | apt-key add -
+    - sh -c 'echo "deb https://isrc.iscas.ac.cn/mirror/ros/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+    - wget -qO - https://isrc.iscas.ac.cn/mirror/xbot/xbot.gpg | apt-key add -
+    - wget https://isrc.iscas.ac.cn/mirror/help/mirror/xbot-xenial-test-amd64.list -O /etc/apt/sources.list.d/xbot-xenial-test-amd64.list
+    - apt-get update -y
+    - apt-get install -y openssh-client dpkg-dev devscripts build-essential equivs fakeroot
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
     - mkdir public
     - cd xbot_bringup
     - mk-build-deps
     - apt install -y ./ros-kinetic-xbot-bringup-build-deps*.deb
     - dpkg-buildpackage -rfakeroot -uc -us
     - mv ../ros-kinetic-xbot-bringup_* ../public/
-    - scp -P 1022 ../public/ros-kinetic-xbot-bringup_*.deb reprepro@192.168.8.12:/data/tmpdeb/
-    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-bringup
-    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-bringup_*.deb
     - cd ../
     - cd xbot_description
     - mk-build-deps
     - apt install -y ./ros-kinetic-xbot-description-build-deps*.deb
     - dpkg-buildpackage -rfakeroot -uc -us
     - mv ../ros-kinetic-xbot-description_* ../public/
-    - scp -P 1022 ../public/ros-kinetic-xbot-description_*.deb reprepro@192.168.8.12:/data/tmpdeb/
-    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-description
-    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-description_*.deb
     - cd ../
     - cd xbot_driver
     - mk-build-deps
     - apt install -y ./ros-kinetic-xbot-driver-build-deps*.deb
     - dpkg-buildpackage -rfakeroot -uc -us
     - mv ../ros-kinetic-xbot-driver_* ../public/
-    - scp -P 1022 ../public/ros-kinetic-xbot-driver_*.deb reprepro@192.168.8.12:/data/tmpdeb/
-    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-driver
-    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-driver_*.deb
     - cd ../
     - cd xbot_msgs
     - mk-build-deps
     - apt install -y ./ros-kinetic-xbot-msgs-build-deps*.deb
     - dpkg-buildpackage -rfakeroot -uc -us
     - mv ../ros-kinetic-xbot-msgs_* ../public/
-    - scp -P 1022 ../public/ros-kinetic-xbot-msgs_*.deb reprepro@192.168.8.12:/data/tmpdeb/
-    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-msgs
-    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-msgs_*.deb
     - cd ../
     - cd xbot_tools
     - mk-build-deps
@@ -94,9 +55,6 @@ build:
     - apt install -y ./ros-kinetic-xbot-tools-build-deps*.deb
     - dpkg-buildpackage -rfakeroot -uc -us
     - mv ../ros-kinetic-xbot-tools_* ../public/
-    - scp -P 1022 ../public/ros-kinetic-xbot-tools_*.deb reprepro@192.168.8.12:/data/tmpdeb/
-    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-tools
-    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-tools_*.deb
     - cd ../
     - cd xbot_safety_controller
     - mk-build-deps
@@ -104,9 +62,6 @@ build:
     - apt install -y ./ros-kinetic-xbot-safety-controller-build-deps*.deb
     - dpkg-buildpackage -rfakeroot -uc -us
     - mv ../ros-kinetic-xbot-safety-controller_* ../public/
-    - scp -P 1022 ../public/ros-kinetic-xbot-safety-controller_*.deb reprepro@192.168.8.12:/data/tmpdeb/
-    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-safety-controller
-    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-safety-controller_*.deb
     - cd ../
     - cd xbot_node
     - mk-build-deps
@@ -114,7 +69,26 @@ build:
     - apt install -y ./ros-kinetic-xbot-node-build-deps*.deb
     - dpkg-buildpackage -rfakeroot -uc -us
     - mv ../ros-kinetic-xbot-node_* ../public/
-    - scp -P 1022 ../public/ros-kinetic-xbot-node_*.deb reprepro@192.168.8.12:/data/tmpdeb/
+    - cd ../
+    - scp -P 1022 ./public/ros-kinetic-xbot-bringup_*.deb reprepro@192.168.8.12:/data/tmpdeb/
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-bringup
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-bringup_*.deb
+    - scp -P 1022 ./public/ros-kinetic-xbot-description_*.deb reprepro@192.168.8.12:/data/tmpdeb/
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-description
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-description_*.deb
+    - scp -P 1022 ./public/ros-kinetic-xbot-driver_*.deb reprepro@192.168.8.12:/data/tmpdeb/
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-driver
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-driver_*.deb
+    - scp -P 1022 ./public/ros-kinetic-xbot-msgs_*.deb reprepro@192.168.8.12:/data/tmpdeb/
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-msgs
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-msgs_*.deb
+    - scp -P 1022 ./public/ros-kinetic-xbot-tools_*.deb reprepro@192.168.8.12:/data/tmpdeb/
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-tools
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-tools_*.deb
+    - scp -P 1022 ./public/ros-kinetic-xbot-safety-controller_*.deb reprepro@192.168.8.12:/data/tmpdeb/
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-safety-controller
+    - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-safety-controller_*.deb
+    - scp -P 1022 ./public/ros-kinetic-xbot-node_*.deb reprepro@192.168.8.12:/data/tmpdeb/
     - ssh -p 1022 reprepro@192.168.8.12 reprepro remove xenial_test ros-kinetic-xbot-node
     - ssh -p 1022 reprepro@192.168.8.12 reprepro --delete includedeb xenial_test /data/tmpdeb/ros-kinetic-xbot-node_*.deb
   artifacts:
@@ -123,3 +97,4 @@ build:
     expire_in: 1 week
   only:
     - imudown
+
