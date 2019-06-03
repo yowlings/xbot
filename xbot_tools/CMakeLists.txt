@@ -212,6 +212,15 @@ target_link_libraries(kalman_filter ${catkin_LIBRARIES})
 
 install(TARGETS kalman_filter
         DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+<<<<<<< HEAD
+=======
+)
+install(DIRECTORY udev
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+catkin_install_python(PROGRAMS scripts/add_two_ints_server.py scripts/const_dist_move.py scripts/forward.py scripts/keyboard_teleop.py scripts/make_plan.py scripts/pcb_checker.py scripts/ppt.png scripts/pub_topic.py scripts/pycamera.py scripts/q4torpy.py scripts/read_serial.py scripts/rotate.py scripts/xbot_checker.py scripts/xbot_control_view.py scripts/xbot_cruise.py scripts/xbot_qt.ui scripts/xbot_ui.py scripts/xbot_ui.pyc
+        DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+>>>>>>> origin/master
 )
 install(DIRECTORY udev
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
