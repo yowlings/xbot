@@ -65,8 +65,10 @@ bool Sensors::deserialise(ecl::PushAndPop<unsigned char> & byteStream)
   buildVariable(data.yaw_platform_degree, byteStream);
 //  竖直转台角度
   buildVariable(data.pitch_platform_degree, byteStream);
-//  音量控制
+//  音频状态
   buildVariable(data.sound_status, byteStream);
+
+
 //  IMU9250九轴裸数据,由于老版本的电路板9250芯片向下，因此z轴y轴都为反向
   uint16_t tmp;
   buildVariable(tmp, byteStream);
@@ -106,7 +108,7 @@ bool Sensors::deserialise(ecl::PushAndPop<unsigned char> & byteStream)
 //  舵机故障状态
   buildVariable(data.error_status, byteStream);
 
-//  时间戳，0~65536，单位us
+//  时间戳，4字节无符号整形，单位us
   buildVariable(data.timestamp, byteStream);
 
   //软件版本

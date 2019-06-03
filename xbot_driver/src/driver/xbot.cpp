@@ -669,10 +669,6 @@ void Xbot::sendBaseControlCommand()
 void Xbot::sendCommand(Command command)
 {
 
-
-
-
-
   if(command.data.command < 3)
   {
     if( !base_is_alive) {

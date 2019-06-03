@@ -127,7 +127,7 @@ bool CoreSensors::deserialise(ecl::PushAndPop<unsigned char> & byteStream)
   buildVariable(data.left_motor_current, byteStream);
   buildVariable(data.right_motor_current, byteStream);
 
-//  时间戳，0~65536,单位us
+//  时间戳，4字节无符号整形，单位us
   buildVariable(data.timestamp, byteStream);
 
 //  故障状态显示

@@ -40,7 +40,7 @@ public:
   struct Data {
     unsigned char yaw_platform_degree;
     unsigned char pitch_platform_degree;
-    unsigned char sound_status;
+    bool sound_status;
     float acc_x;
     float acc_y;
     float acc_z;
