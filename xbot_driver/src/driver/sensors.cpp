@@ -70,19 +70,20 @@ bool Sensors::deserialise(ecl::PushAndPop<unsigned char> & byteStream)
 
 
 //  IMU9250九轴裸数据,由于老版本的电路板9250芯片向下，因此z轴y轴都为反向
+  //master 分支下都是已经修正了电路板芯片朝向问题，因此去除imudown的负号
   uint16_t tmp;
   buildVariable(tmp, byteStream);
   data.acc_x = tmp*0.00006086*9.8;
   buildVariable(tmp, byteStream);
-  data.acc_y = -tmp*0.00006086*9.8;
+  data.acc_y = tmp*0.00006086*9.8;
   buildVariable(tmp, byteStream);
-  data.acc_z = -(tmp*0.00006086-1)*9.8;
+  data.acc_z = (tmp*0.00006086-1)*9.8;
   buildVariable(tmp, byteStream);
   data.gyro_x = tmp*4*0.0152139846947314*3.1415926/180;
   buildVariable(tmp, byteStream);
-  data.gyro_y = -tmp*4*0.0152139846947314*3.1415926/180;
+  data.gyro_y = tmp*4*0.0152139846947314*3.1415926/180;
   buildVariable(tmp, byteStream);
-  data.gyro_z = -tmp*4*0.0152139846947314*3.1415926/180;
+  data.gyro_z = tmp*4*0.0152139846947314*3.1415926/180;
 
 
   buildVariable(tmp, byteStream);
