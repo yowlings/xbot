@@ -5,17 +5,19 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_definitions(-D_GLIBCXX_USE_C99=1)
 find_package(catkin REQUIRED COMPONENTS rospy roscpp nodelet pluginlib tf angles
                                         geometry_msgs sensor_msgs nav_msgs std_msgs
-                                        xbot_msgs xbot_driver 
+                                        xbot_msgs xbot_driver
                                         ecl_exceptions ecl_sigslots ecl_streams ecl_threads)
 
 catkin_package(
    INCLUDE_DIRS include
-   LIBRARIES xbot_ros xbot_nodelet
+   LIBRARIES xbot_ros xbot_nodelet xbot_talker
    CATKIN_DEPENDS rospy roscpp nodelet pluginlib tf angles
                   geometry_msgs sensor_msgs nav_msgs std_msgs
                   xbot_msgs xbot_driver
                   ecl_exceptions ecl_sigslots ecl_streams ecl_threads
 )
+
+
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 
