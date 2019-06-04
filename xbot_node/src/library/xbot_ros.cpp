@@ -40,6 +40,7 @@
 #include <tf/tf.h>
 #include <ecl/streams/string_stream.hpp>
 #include "xbot_node/xbot_ros.hpp"
+#include <string>
 
 /*****************************************************************************
  ** Namespaces
@@ -58,7 +59,7 @@ namespace xbot
  * Make sure you call the init() method to fully define this node.
  */
 XbotRos::XbotRos(std::string& node_name) :
-    name(node_name),cmd_vel_timed_out_(false), base_serial_timed_out_(false),sensor_serial_timed_out_(false),
+    name(node_name),cmd_vel_timed_out_(false), base_serial_timed_out_(false),sensor_serial_timed_out_(false),announced_battery(false),
     base_slot_stream_data(&XbotRos::processBaseStreamData, *this),
     sensor_slot_stream_data(&XbotRos::processSensorStreamData, *this)
 {
@@ -75,8 +76,23 @@ XbotRos::~XbotRos()
   ROS_INFO_STREAM("Xbot : waiting for xbot thread to finish [" << name << "].");
   xbot.setSoundEnableControl(false);
   xbot.setLedControl(0);
+  client_thread.join();
 }
 
+
+void XbotRos::call_srv()
+{
+
+  xbot_talker::play srv;
+  srv.request.mode = 2;
+//  std::string s1;
+//  s1="我";
+//  std::string s2;
+//  s2=s1+std::to_string();
+
+  srv.request.tts_text = "机器人已启动并准备就绪！";
+  srv_play.call(srv);
+}
 bool XbotRos::init(ros::NodeHandle& nh)
 {
   /*********************
@@ -84,6 +100,8 @@ bool XbotRos::init(ros::NodeHandle& nh)
    **********************/
   advertiseTopics(nh);
   subscribeTopics(nh);
+
+  srv_play = nh.serviceClient<xbot_talker::play>("/xbot/play");
 
   /*********************
    ** Slots

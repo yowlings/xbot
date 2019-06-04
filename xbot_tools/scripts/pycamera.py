@@ -3,7 +3,7 @@
 ######################################################################################
 #> File Name: pycamera.py
 #> Author:Rocwang 
-#> Mail: yowlings@gmail.com;
+#> Mail: wangpeng@droid.ac.cn;
 #> Github:https://github.com/yowlings
 #> Created Time: 2018年07月05日 星期四 11时40分33秒
 ######################################################################################

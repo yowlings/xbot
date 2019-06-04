@@ -8,7 +8,7 @@ This section describes the installation process for Linux.
 
 @subsection who Target audience
 
-Linux people who want to compile Kobuki driver, but not use ros
+Linux people who want to compile xbot driver, but not use ros
 
 
 @section Procedure 
@@ -38,10 +38,10 @@ Refer to the <a href="http://ros.org/wiki/catkin">Catkin documentation</a> for m
 Next we must prepare a catkin workspace.
 
 @code
-  mkdir ~/kobuki_core
-  wstool init -j5 ~/kobuki_core/src https://raw.github.com/yujinrobot/kobuki_core/hydro-devel/kobuki_core.rosinstall
-  cd ~/kobuki_core
-  export PATH=~/tmp/kobuki_core/src/catkin/bin/:${PATH}
+  mkdir ~/xbot_core
+  wstool init -j5 ~/xbot_core/src https://raw.github.com/yujinrobot/xbot_core/hydro-devel/xbot_core.rosinstall
+  cd ~/xbot_core
+  export PATH=~/tmp/xbot_core/src/catkin/bin/:${PATH}
   catkin_make
   cd build; make install
 @endcode
@@ -53,12 +53,12 @@ cmake variables (again, CMAKE_INSTALL_PREFIX is a useful one, otherwise it defau
 @subsection test Testing your installation
 
 You can test your installation by executing some of the demo and test
-programs provided with Kobuki driver. You must point your <i>LD_LIBRARY_PATH</i> variable to
+programs provided with xbot driver. You must point your <i>LD_LIBRARY_PATH</i> variable to
 the installed libraries. For example, if you type the following commands, the robot should move making squares:
 
 @code
-  export LD_LIBRARY_PATH=~/kobuki_core/install/lib
-  ~/kobuki_core/install/lib/kobuki_driver/demo_kobuki_simple_loop
+  export LD_LIBRARY_PATH=~/xbot_core/install/lib
+  ~/xbot_core/install/lib/xbot_driver/demo_xbot_simple_loop
 @endcode
 
 @section crossc Cross compiling
@@ -67,7 +67,7 @@ We still have not prepared proper cross-compiling documentation, but have done s
 
 @section support Additional support
 
-Do not hesitate to ask on <a href="mailto:kobuki-users@yujinrobot.com">Kobuki users list</a> if you need additional
+Do not hesitate to ask on <a href="mailto:xbot-users@yujinrobot.com">xbot users list</a> if you need additional
 support.
 
 **/

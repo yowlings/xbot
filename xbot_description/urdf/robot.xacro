@@ -14,7 +14,7 @@
   <xacro:include filename="$(find xbot_description)/urdf/materials.xacro" />
   <xacro:include filename="$(find xbot_description)/urdf/xbot-u.urdf.xacro" />
   <xacro:include filename="$(find xbot_description)/urdf/xbot-u.gazebo" />
-  <xacro:xbot2_base/>
+  <xacro:xbot_base/>
 
 
 

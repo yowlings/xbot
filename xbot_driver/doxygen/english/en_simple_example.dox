@@ -4,7 +4,7 @@
 
 @section Overview
 
-This example will show you how to process kobuki's pose data and send wheel commands to robot.
+This example will show you how to process xbot's pose data and send wheel commands to robot.
 
 @section Full Source Code
 
@@ -20,36 +20,36 @@ Here is full source code of simple control loop example. You can find it from sr
 #include <ecl/sigslots.hpp>
 #include <ecl/geometry/pose2d.hpp>
 #include <ecl/linear_algebra.hpp>
-#include "kobuki_driver/kobuki.hpp"
+#include "xbot_driver/xbot.hpp"
 
 /*****************************************************************************
 ** Classes
 *****************************************************************************/
 
-class KobukiManager {
+class xbotManager {
 public:
-  KobukiManager() :
+  xbotManager() :
     dx(0.0), dth(0.0),
-    slot_stream_data(&KobukiManager::processStreamData, *this)
+    slot_stream_data(&xbotManager::processStreamData, *this)
   {
-    kobuki::Parameters parameters;
-    parameters.sigslots_namespace = "/kobuki";
-    parameters.device_port = "/dev/kobuki";
+    xbot::Parameters parameters;
+    parameters.sigslots_namespace = "/xbot";
+    parameters.device_port = "/dev/xbot";
     parameters.enable_acceleration_limiter = false;
-    kobuki.init(parameters);
-    kobuki.enable();
-    slot_stream_data.connect("/kobuki/stream_data");
+    xbot.init(parameters);
+    xbot.enable();
+    slot_stream_data.connect("/xbot/stream_data");
   }
 
-  ~KobukiManager() {
-    kobuki.setBaseControl(0,0); // linear_velocity, angular_velocity in (m/s), (rad/s)
-    kobuki.disable();
+  ~xbotManager() {
+    xbot.setBaseControl(0,0); // linear_velocity, angular_velocity in (m/s), (rad/s)
+    xbot.disable();
   }
 
   void processStreamData() {
     ecl::Pose2D<double> pose_update;
     ecl::linear_algebra::Vector3d pose_update_rates;
-    kobuki.updateOdometry(pose_update, pose_update_rates);
+    xbot.updateOdometry(pose_update, pose_update_rates);
     pose *= pose_update;
     dx += pose_update.x();
     dth += pose_update.heading();
@@ -58,9 +58,9 @@ public:
 
   // Generate square motion
   void processMotion() {
-    if (dx >= 1.0 && dth >= ecl::pi/2.0) { dx=0.0; dth=0.0; kobuki.setBaseControl(0.0, 0.0); return; }
-    else if (dx >= 1.0) { kobuki.setBaseControl(0.0, 3.3); return; }
-    else { kobuki.setBaseControl(0.3, 0.0); return; }
+    if (dx >= 1.0 && dth >= ecl::pi/2.0) { dx=0.0; dth=0.0; xbot.setBaseControl(0.0, 0.0); return; }
+    else if (dx >= 1.0) { xbot.setBaseControl(0.0, 3.3); return; }
+    else { xbot.setBaseControl(0.3, 0.0); return; }
   }
 
   ecl::Pose2D<double> getPose() {
@@ -70,7 +70,7 @@ public:
 private:
   double dx, dth;
   ecl::Pose2D<double> pose;
-  kobuki::Kobuki kobuki;
+  xbot::xbot xbot;
   ecl::Slot<> slot_stream_data;
 };
 
@@ -92,14 +92,14 @@ int main(int argc, char** argv)
   signal(SIGINT, signalHandler);
 
   std::cout << "Demo : Example of simple control loop." << std::endl;
-  KobukiManager kobuki_manager;
+  xbotManager xbot_manager;
 
   ecl::Sleep sleep(1);
   ecl::Pose2D<double> pose;
   try {
     while (!shutdown_req){
       sleep();
-      pose = kobuki_manager.getPose();
+      pose = xbot_manager.getPose();
       std::cout << "current pose: [" << pose.x() << ", " << pose.y() << ", " << pose.heading() << "]" << std::endl;
     }
   } catch ( ecl::StandardException &e ) {
@@ -111,7 +111,7 @@ int main(int argc, char** argv)
 
 @section Explanation
 
-This simple control loop program process kobuki's stream data to retrive how far moved from last stream, and accumulate it to get current pose(position and orientation). And control the robot to following the simple squre path where each side is 1.0 meter.
+This simple control loop program process xbot's stream data to retrive how far moved from last stream, and accumulate it to get current pose(position and orientation). And control the robot to following the simple squre path where each side is 1.0 meter.
 
 @subsection includes Includes
 
@@ -121,7 +121,7 @@ This simple control loop program process kobuki's stream data to retrive how far
 #include <ecl/sigslots.hpp>
 #include <ecl/geometry/pose2d.hpp>
 #include <ecl/linear_algebra.hpp>
-#include "kobuki_driver/kobuki.hpp"
+#include "xbot_driver/xbot.hpp"
 @endcode
 
 ecl::Sleep from ecl/time.hpp is used to throttle the rate of outputs of current pose printing. Signal handler from csignal also introduced to prevent unexpected behavior, when it quiting.
@@ -130,46 +130,46 @@ ecl/geometry/pose2d.hpp and ecl/linear_algebra.hpp is used to store and calculat
 
 @subsection class Class
 
-The KobukiManager class contains kobuki::Kobuki class, pose data and sigslot callback.
-KobukiManager class is extended from previous @ref enSigslotsGuide "sigslots" examples. Now it has dx, dth and pose data.
+The xbotManager class contains xbot::xbot class, pose data and sigslot callback.
+xbotManager class is extended from previous @ref enSigslotsGuide "sigslots" examples. Now it has dx, dth and pose data.
 
 @code
-class KobukiManager {
+class xbotManager {
 public:
-  KobukiManager() :
+  xbotManager() :
     dx(0.0), dth(0.0),
-    slot_stream_data(&KobukiManager::processStreamData, *this)
+    slot_stream_data(&xbotManager::processStreamData, *this)
   {
-    kobuki::Parameters parameters;
-    parameters.sigslots_namespace = "/kobuki";
-    parameters.device_port = "/dev/kobuki";
+    xbot::Parameters parameters;
+    parameters.sigslots_namespace = "/xbot";
+    parameters.device_port = "/dev/xbot";
     parameters.enable_acceleration_limiter = false;
-    kobuki.init(parameters);
-    kobuki.enable();
-    slot_stream_data.connect("/kobuki/stream_data");
+    xbot.init(parameters);
+    xbot.enable();
+    slot_stream_data.connect("/xbot/stream_data");
   }
 @endcode
 
-Only @ref kobuki::Kobuki::enable() "kobuki.enable()" is added from previous sigslot exmaple. It will turn on motor power of kobuki. To moving kobuki, you should call this function before commanding wheel velocities.
+Only @ref xbot::xbot::enable() "xbot.enable()" is added from previous sigslot exmaple. It will turn on motor power of xbot. To moving xbot, you should call this function before commanding wheel velocities.
 
 @code
-  ~KobukiManager() {
-    kobuki.setBaseControl(0,0); // linear_velocity, angular_velocity in (m/s), (rad/s)
-    kobuki.disable();
+  ~xbotManager() {
+    xbot.setBaseControl(0,0); // linear_velocity, angular_velocity in (m/s), (rad/s)
+    xbot.disable();
   }
 @endcode
 
 Destructor is added in this example. When quiting the porgam, this code will immediately stop the robot and disable it. It will improve the controllability in emergent condition, and will prevent unwanted behavior.
 
-@ref kobuki::Kobuki::setBaseControl() "kobuki.setBaseControl()" is a function to send wheel command to robot. It's arguments are linear and angular velocities in (m/s) and (rad/s).
+@ref xbot::xbot::setBaseControl() "xbot.setBaseControl()" is a function to send wheel command to robot. It's arguments are linear and angular velocities in (m/s) and (rad/s).
 
-@ref kobuki::Kobuki::disable() "disable()" will turned off the motor power.
+@ref xbot::xbot::disable() "disable()" will turned off the motor power.
 
 @code
   void processStreamData() {
     ecl::Pose2D<double> pose_update;
     ecl::linear_algebra::Vector3d pose_update_rates;
-    kobuki.updateOdometry(pose_update, pose_update_rates);
+    xbot.updateOdometry(pose_update, pose_update_rates);
     pose *= pose_update;
     dx += pose_update.x();
     dth += pose_update.heading();
@@ -179,7 +179,7 @@ Destructor is added in this example. When quiting the porgam, this code will imm
 
 processStreamData() is slot callback function, when stream data is arrived from robot, this callback will be called.
 
-@ kobuki::Kobuki::updateOdometry() method is used to retriving odometry data from last stream data.
+@ xbot::xbot::updateOdometry() method is used to retriving odometry data from last stream data.
 It returns `updated_pose` and `updated_pose_rate` that calculated from encoder ticks.
 
 pose_update containts calculated linear and angular displacements between the stream.
@@ -196,9 +196,9 @@ we can get accumulated pose from odoemtry.
 @code
   // Generate square motion
   void processMotion() {
-    if (dx >= 1.0 && dth >= ecl::pi/2.0) { dx=0.0; dth=0.0; kobuki.setBaseControl(0.0, 0.0); return; }
-    else if (dx >= 1.0) { kobuki.setBaseControl(0.0, 3.3); return; }
-    else { kobuki.setBaseControl(0.3, 0.0); return; }
+    if (dx >= 1.0 && dth >= ecl::pi/2.0) { dx=0.0; dth=0.0; xbot.setBaseControl(0.0, 0.0); return; }
+    else if (dx >= 1.0) { xbot.setBaseControl(0.0, 3.3); return; }
+    else { xbot.setBaseControl(0.3, 0.0); return; }
   }
 @endcode
 
@@ -219,7 +219,7 @@ getPose() is simple getter method for accumulated pose of robot.
 private:
   double dx, dth;
   ecl::Pose2D<double> pose;
-  kobuki::Kobuki kobuki;
+  xbot::xbot xbot;
   ecl::Slot<> slot_stream_data;
 };
 @endcode
@@ -234,7 +234,7 @@ void signalHandler(int signum) {
 @endcode
 
 This part is signal handler. signalHandler() will be called when the SIGINT signal is catched(e.g. user pressed the ctrl+c keys). A bool variable, shutdown_req, setted to false will break the while loop in main function, and terminates program also.
-If there is no signal handler, program will terminated without calling destructor of KobukiManager class. And the robot will run last wheel command continuously until timed out(5 seconds by default).
+If there is no signal handler, program will terminated without calling destructor of xbotManager class. And the robot will run last wheel command continuously until timed out(5 seconds by default).
 
 @subsection main Main
 
@@ -248,14 +248,14 @@ int main(int argc, char** argv)
 
 @code
   std::cout << "Demo : Example of simple control loop." << std::endl;
-  KobukiManager kobuki_manager;
+  xbotManager xbot_manager;
 
   ecl::Sleep sleep(1);
   ecl::Pose2D<double> pose;
   try {
     while (!shutdown_req){
       sleep();
-      pose = kobuki_manager.getPose();
+      pose = xbot_manager.getPose();
       std::cout << "current pose: [" << pose.x() << ", " << pose.y() << ", " << pose.heading() << "]" << std::endl;
     }
   } catch ( ecl::StandardException &e ) {

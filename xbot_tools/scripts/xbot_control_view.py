@@ -3,7 +3,7 @@
 ######################################################################################
 #> File Name: xbot_control_view.py
 #> Author:Rocwang 
-#> Mail: yowlings@gmail.com;
+#> Mail: wangpeng@droid.ac.cn;
 #> Github:https://github.com/yowlings
 #> Created Time: 2018年10月17日 星期三 16时09分49秒
 ######################################################################################

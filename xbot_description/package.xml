@@ -3,8 +3,8 @@
   <version>1.2.1</version>
   <description>The urdf model description package for xbot robot.</description>
   <author>Roc</author>
-  <author>yowlings@buaa.edu.cn</author>
-  <maintainer email="yowlings@buaa.edu.cn">roc</maintainer>
+  <author>wangpeng@droid.ac.cn</author>
+  <maintainer email="wangpeng@droid.ac.cn">roc</maintainer>
   <license>LGPL</license>
 
   <buildtool_depend>catkin</buildtool_depend>

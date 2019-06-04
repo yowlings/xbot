@@ -4,7 +4,7 @@
   xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
   xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:macro name="xbot2_base">
+  <xacro:macro name="xbot_base">
   <link name="base_footprint"/>
   <joint name="base_footprint_to_base" type="fixed">
     <axis rpy="0 0 0" xyz="0 0 0"/>

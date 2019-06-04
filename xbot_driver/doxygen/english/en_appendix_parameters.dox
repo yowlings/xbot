@@ -1,27 +1,27 @@
 /**
 
-@page enAppendixKobukiParameters Appendix : Kobuki Parameters
+@page enAppendixxbotParameters Appendix : xbot Parameters
 
 @tableofcontents
 
 
 <!-----------------------------
-         Kobuki Parameters
+         xbot Parameters
 ------------------------------->
 
 @section enOverview Overview
 
-Here are necessary parameters of kobuki for conversion of encoder ticks to robot pose.
+Here are necessary parameters of xbot for conversion of encoder ticks to robot pose.
 
 
 
 
 
 <!-----------------------------
-         Kobuki Parameters
+         xbot Parameters
 ------------------------------->
 
-@section enKobukiParameters Kobuki Parameters
+@section enxbotParameters xbot Parameters
 
 <table>
 <tr><th></th><th>Name</th><th>Value</th><th>Description</th></tr>

@@ -198,6 +198,16 @@ void XbotRos::publishBatteryState()
         xbot.setLedControl(leds);
       }
 
+      if(!announced_battery)
+      {
+
+        client_thread.start(&XbotRos::call_srv, *this);
+
+        announced_battery = true;
+
+
+      }
+
 
 
 //    }
@@ -296,7 +306,7 @@ void XbotRos::publishInertia()
 
     imu_msg.angular_velocity.x = data.gyro_x;
     imu_msg.angular_velocity.y = data.gyro_y;
-    imu_msg.angular_velocity.z = -data.gyro_z;
+    imu_msg.angular_velocity.z = data.gyro_z;
     imu_msg.angular_velocity_covariance[0] = 10.01;
     imu_msg.angular_velocity_covariance[4] = 10.01;
     imu_msg.angular_velocity_covariance[8] = 10.01;

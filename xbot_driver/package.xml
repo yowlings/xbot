@@ -4,8 +4,8 @@
   <description>C++ driver library for xbot:
     Pure C++ driver library for xbot. This is for those who do not wish to use ROS on their systems.</description>
   <author>Roc</author>
-  <author>yowlings@buaa.edu.cn</author>
-  <maintainer email="yowlings@buaa.edu.cn">Roc</maintainer>
+  <author>wangpeng@droid.ac.cn</author>
+  <maintainer email="wangpeng@droid.ac.cn">Roc</maintainer>
   <license>LGPL</license>  
   <url type="website">http://ros.org/wiki/xbot_driver</url>
 

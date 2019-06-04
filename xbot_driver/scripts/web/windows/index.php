@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Kobuki Firmware</title>
+    <title>xbot Firmware</title>
   </head>
   <body>
   <?php
@@ -11,10 +11,10 @@
     $sdk_bundles = glob($directory . "*.zip");
  
     //print each file name
-    echo("<h1>Windows Drivers for Kobuki</h1>");
-    echo("<p>The following archives are sdk bundles for the kobuki driver. They include ");
-    echo("headers and libraries for kobuki and all of its dependencies. Refer to the ");
-    echo("<a href='http://kobuki.yujinrobot.com/documentation/howtos/upgrading-firmware/'>howto</a> ");
+    echo("<h1>Windows Drivers for xbot</h1>");
+    echo("<p>The following archives are sdk bundles for the xbot driver. They include ");
+    echo("headers and libraries for xbot and all of its dependencies. Refer to the ");
+    echo("<a href='http://xbot.yujinrobot.com/documentation/howtos/upgrading-firmware/'>howto</a> ");
     echo("for installation instructions.");
     echo("<ul>\n");
     echo("  <li><a href='./MD5SUMS'>MD5SUMS</a></li>\n");
@@ -36,9 +36,9 @@
       }
     }
     echo("</ul>\n");
-    echo("<p>Some history (look for items linked to <i>kobuki_driver)</i>:</p>");
+    echo("<p>Some history (look for items linked to <i>xbot_driver)</i>:</p>");
     echo("<ul>\n");
-    echo("  <li><a href='http://ros.org/wiki/kobuki/ChangeList'>Changelog</a></li>\n");
+    echo("  <li><a href='http://ros.org/wiki/xbot/ChangeList'>Changelog</a></li>\n");
     echo("</ul>\n");
   ?>
   </body>

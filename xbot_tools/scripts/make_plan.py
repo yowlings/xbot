@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Author: yowlings@gmail.com
+# @Author: wangpeng@droid.ac.cn
 # @Date:   2018-12-26 10:22:42
-# @Last Modified by:   yowlings@gmail.com
+# @Last Modified by:   wangpeng@droid.ac.cn
 # @Last Modified time: 2019-01-03 15:55:45
 import rospy
 from nav_msgs.msg import Path

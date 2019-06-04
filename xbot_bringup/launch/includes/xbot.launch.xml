@@ -2,15 +2,17 @@
   Xbot's implementation of turtlebot's mobile base.
  -->
 <launch>
-  <arg name="base_port"/> <!-- TODO: use the serialport parameter to set the serial port of kobuki -->
-  <arg name="sensor_port"/>
+  <arg name="base_port"                  default = "xbot" /> 
+  <arg name="sensor_port"                default = "sensor"/>
+  <arg name="led_indicate_battery"                default = "True" />
+
 
   <node pkg="nodelet" type="nodelet" name="mobile_base_nodelet_manager" args="manager"/>
   <node pkg="nodelet" type="nodelet" name="mobile_base" args="load xbot_node/XbotNodelet mobile_base_nodelet_manager" >
     <rosparam file="$(find xbot_node)/param/base.yaml" command="load"/>
     <param name="base_port" value="$(arg base_port)" />
     <param name="sensor_port" value="$(arg sensor_port)" />
-    <param name="led_indicate_battery" value="True" />
+    <param name="led_indicate_battery" value="$(arg led_indicate_battery)" />
 
     <remap from="mobile_base/odom" to="odom"/>
     <!-- Don't do this - force applications to use a velocity mux for redirection -->

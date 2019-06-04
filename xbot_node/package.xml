@@ -5,8 +5,8 @@
       ROS nodelet for Xbot: ROS wrapper for the Xbot driver.
   </description>
   <author>Roc</author>
-  <author>yowlings@buaa.edu.cn</author>
-  <maintainer email="yowlings@buaa.edu.cn">Roc</maintainer>
+  <author>wangpeng@droid.ac.cn</author>
+  <maintainer email="wangpeng@droid.ac.cn">Roc</maintainer>
   <license>LGPL</license>  
   <url type="website">http://ros.org/wiki/xbot_node</url>
 

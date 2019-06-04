@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Kobuki Firmware</title>
+    <title>xbot Firmware</title>
   </head>
   <body>
   <?php
@@ -11,9 +11,9 @@
     $binaries = glob($directory . "*.hex");
  
     //print each file name
-    echo("<h1>Firmware for Kobuki</h1>");
-    echo("<p>The following files are firmware binaries for the Kobuki. Refer to the web-site ");
-    echo("<a href='http://kobuki.yujinrobot.com/documentation/howtos/upgrading-firmware/'>howto</a> ");
+    echo("<h1>Firmware for xbot</h1>");
+    echo("<p>The following files are firmware binaries for the xbot. Refer to the web-site ");
+    echo("<a href='http://xbot.yujinrobot.com/documentation/howtos/upgrading-firmware/'>howto</a> ");
     echo("for installation instructions.");
     echo("<ul>\n");
     echo("  <li><a href='./MD5SUMS'>MD5SUMS</a></li>\n");
@@ -30,11 +30,11 @@
     echo("</ul>\n");
     echo("<p>Some history:</p>");
     echo("<ul>\n");
-    echo("  <li><a href='https://github.com/yujinrobot/kobuki/blob/hydro-devel/kobuki_driver/firmware_changelog.md'>Changelog</a></li>\n");
+    echo("  <li><a href='https://github.com/yujinrobot/xbot/blob/hydro-devel/xbot_driver/firmware_changelog.md'>Changelog</a></li>\n");
     echo("</ul>\n");
     echo("<p>About the firmware versions:</p>");
     echo("<ul>\n");
-    echo("<li>'factory': this is flashed onto the Kobukis in the factory. It has undergone serious testing, but is usually not the most recent one.</li>\n");
+    echo("<li>'factory': this is flashed onto the xbots in the factory. It has undergone serious testing, but is usually not the most recent one.</li>\n");
     echo("<li>'latest-stable': more recent, but less tested
 </li>\n");
     echo("<li>'latest': most recent, but be aware that this version hasn't been tested much and might not be very stable.</li>\n");

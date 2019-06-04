@@ -3,7 +3,7 @@
 ######################################################################################
 #> File Name: auto_rotate.py
 #> Author:Rocwang 
-#> Mail: yowlings@gmail.com;
+#> Mail: wangpeng@droid.ac.cn;
 #> Github:https://github.com/yowlings
 #> Created Time: 2018年06月14日 星期四 16时14分27秒
 ######################################################################################

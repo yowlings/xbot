@@ -3,19 +3,19 @@
 
 @section Overview
 
-The kobuki driver is a simple c++ library that allows interfacing to the kobuki mobile research base. Before
+The xbot driver is a simple c++ library that allows interfacing to the xbot mobile research base. Before
 
 @subsection who Target Users
 
-This documentation is targeted for users creating a custom robot on top of kobuki using either posix/win32 or
+This documentation is targeted for users creating a custom robot on top of xbot using either posix/win32 or
 an apple operating system. If that is you, you are in the right place - proceed to the guides below.
 If you're interested in developing a driver for a custom unsupported platform (e.g. vxworks) then you'll want
 to check the serial protocol reference in the @ref enAppendixProtocolSpecification "appendix".
 
-Alternatively, if you're using a <i>kobuki reference platform</i>, check one of the links below.
+Alternatively, if you're using a <i>xbot reference platform</i>, check one of the links below.
 
 - <i>Turtlebot</i> : refer to the documentation for <a href="http://ros.org/wiki/turtlebot">turtlebot</a>.
-- <i>Ros on Kobuki</i> : refer to the documentation for the <a href="http://ros.org/wiki/kobuki">kobuki node</a>.
+- <i>Ros on xbot</i> : refer to the documentation for the <a href="http://ros.org/wiki/xbot">xbot node</a>.
 - <i>Other</i> : if you would like your platform listed here, contact the maintainers of this project.
 
 @subsection design Design
@@ -27,7 +27,7 @@ the user. To that end, the driver is simply a library of classes, simple functio
 @ref enSigslotsGuide "sigslots".
 
 We have a simple implementation in the guides below and a more detailed implementation can be found for the
-<a href="http://ros.org/wiki/kobuki">kobuki_node</a> that runs within the ros framework.
+<a href="http://ros.org/wiki/xbot">xbot_node</a> that runs within the ros framework.
 
 @section Guides
 
@@ -39,7 +39,7 @@ We have a simple implementation in the guides below and a more detailed implemen
 - @ref enSigslotsGuide "Sigslots"
 - @ref enSimpleExample "Simple Control Loop Example"
 - @ref enEmbeddedBoardTutorial "Embedded Board Tutorial"
-- @ref enAppendixKobukiParameters "Appendix : Kobuki Parameters"
+- @ref enAppendixxbotParameters "Appendix : xbot Parameters"
 - @ref enAppendixProtocolSpecification "Appendix : Protocol Specification"
 - @ref enAppendixVersionInfo "Appendix : Version Info"
 

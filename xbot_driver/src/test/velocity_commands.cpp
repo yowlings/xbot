@@ -1,10 +1,10 @@
 /**
- * @file /kobuki_driver/src/test/velocity_commands.cpp
+ * @file /xbot_driver/src/test/velocity_commands.cpp
  *
  * @brief Unit test for velocity command inputs.
  *
  * License: BSD
- *   https://raw.github.com/yujinrobot/kobuki_core/hydro-devel/kobuki_driver/LICENSE
+ *   https://raw.github.com/yujinrobot/xbot_core/hydro-devel/xbot_driver/LICENSE
  **/
 
 /*****************************************************************************

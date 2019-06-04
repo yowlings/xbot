@@ -1,7 +1,7 @@
 Source: ros-kinetic-xbot-msgs
 Section: misc
 Priority: extra
-Maintainer: Roc Wang <yowlings@gmail.com>
+Maintainer: Roc Wang <wangpeng@droid.ac.cn>
 Build-Depends: debhelper (>= 9.0.0), ros-kinetic-actionlib-msgs, ros-kinetic-catkin, ros-kinetic-message-generation, ros-kinetic-std-msgs
 Homepage: http://ros.org/wiki/xbot_msgs
 Standards-Version: 3.9.2

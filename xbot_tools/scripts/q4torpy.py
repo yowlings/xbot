@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# @Author: yowlings@gmail.com
+# @Author: wangpeng@droid.ac.cn
 # @Date:   2018-12-29 10:38:52
-# @Last Modified by:   yowlings@gmail.com
+# @Last Modified by:   wangpeng@droid.ac.cn
 # @Last Modified time: 2018-12-29 11:33:46
 import rospy
 import tf

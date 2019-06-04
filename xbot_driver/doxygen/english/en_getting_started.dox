@@ -1,38 +1,38 @@
 /**
 @page enGettingStartedGuide Getting Started
 
-@section kobukiClass Overview
+@section xbotClass Overview
 
-The @ref kobuki::Kobuki class is the first port of call for developing your kobuki program. 
-All kobuki configuration and interaction is done via this class. This guide will cover 
+The @ref xbot::xbot class is the first port of call for developing your xbot program. 
+All xbot configuration and interaction is done via this class. This guide will cover 
 configuration and interaction with the library method api. Interactions via callbacks 
 using sigslots is covered especially in the guide on @ref enSigslotsGuide "sigslots".  
 
-@section kobukiConfiguration Configuration
+@section xbotConfiguration Configuration
 
-Kobuki configuration is handled by the @ref kobuki::Parameters "kobuki::Parameters" class which
-is passed to the kobuki instance via the @ref kobuki::Kobuki::init "kobuki::Kobuki::init()" method. Most of the
+xbot configuration is handled by the @ref xbot::Parameters "xbot::Parameters" class which
+is passed to the xbot instance via the @ref xbot::xbot::init "xbot::xbot::init()" method. Most of the
 parameters to be configured have sane defaults. The only one that requires frequent configuration is 
-typically the serial @ref kobuki::Parameters::device_port "device_port". Note that on some systems you 
+typically the serial @ref xbot::Parameters::device_port "device_port". Note that on some systems you 
 can configure a rule (refer to the @ref enFtdiGuide "ftdi serial device guide") for the device port, 
 otherwise you will require one of the usual COM1 or /dev/ttyUSB0 values.
 
 @code
 #include <iostream>
-#include <kobuki_driver/kobuki.hpp>
+#include <xbot_driver/xbot.hpp>
 #include <ecl/time.hpp>
 
-class KobukiManager {
+class xbotManager {
 public:
-  KobukiManager() {
-    kobuki::Parameters parameters;
-    // change the default device port from /dev/kobuki to /dev/ttyUSB0
+  xbotManager() {
+    xbot::Parameters parameters;
+    // change the default device port from /dev/xbot to /dev/ttyUSB0
     parameters.device_port = "/dev/ttyUSB0";
     // Other parameters are typically happy enough as defaults
     // namespaces all sigslot connection names under this value, only important if you want to
-    parameters.sigslots_namespace = "/kobuki";
+    parameters.sigslots_namespace = "/xbot";
     // Most people will prefer to do their own velocity smoothing/acceleration limiting.
-    // If you wish to utilise kobuki's minimal acceleration limiter, set to true
+    // If you wish to utilise xbot's minimal acceleration limiter, set to true
     parameters.enable_acceleration_limiter = false;
     // If your battery levels are showing significant variance from factory defaults, adjust thresholds.
     // This will affect the led on the front of the robot as well as when signals are emitted by the driver.
@@ -42,79 +42,79 @@ public:
 
     // initialise - it will throw an exception if parameter validation or initialisation fails.
     try {
-      kobuki.init(parameters);
+      xbot.init(parameters);
     } catch ( ecl::StandardException &e ) {
       std::cout << e.what();
     }
   }
 private:
-  kobuki::Kobuki kobuki;
+  xbot::xbot xbot;
 };
 
 int main() {
-  KobukiManager kobuki_manager;
+  xbotManager xbot_manager;
   ecl::Sleep()(5);
   return 0;
 }
 @endcode
 
-If you compile and run this program, you should hear kobuki's starting up chirp followed 
+If you compile and run this program, you should hear xbot's starting up chirp followed 
 immediately by the shutting down chirp.
 
-@section kobukiLibraryApi Library Api
+@section xbotLibraryApi Library Api
 
-@subsection kobukiRawData Raw Data
+@subsection xbotRawData Raw Data
 
-The kobuki driver runs a background thread which continually retrieves packets from the kobuki, saving
+The xbot driver runs a background thread which continually retrieves packets from the xbot, saving
 the raw data, and additionally doing some processing before updating the current state of the robot. 
 
 Raw data can be accessed at any time by one of the following getXXX commands:
 
-- kobuki::Kobuki::getCoreSensorData
-- kobuki::Kobuki::getDockIRData
-- kobuki::Kobuki::getCliffData
-- kobuki::Kobuki::getCurrentData
-- kobuki::Kobuki::getGpInputData
-- kobuki::Kobuki::getInertiaData
-- kobuki::Kobuki::getRawInertiaData
-- kobuki::Kobuki::getControllerInfoData
+- xbot::xbot::getCoreSensorData
+- xbot::xbot::getDockIRData
+- xbot::xbot::getCliffData
+- xbot::xbot::getCurrentData
+- xbot::xbot::getGpInputData
+- xbot::xbot::getInertiaData
+- xbot::xbot::getRawInertiaData
+- xbot::xbot::getControllerInfoData
 
 The gyro provides both filtered yaw angle as well as unfiltered 3-axis inertial data hence the
 two calls above.
 
-@subsection kobukiProcessedData Processed Data and Status
+@subsection xbotProcessedData Processed Data and Status
 
 The following are convenience methods for accessing the current state of the robot 
 
-- kobuki::Kobuki::batteryStatus
-- kobuki::Kobuki::getHeading
-- kobuki::Kobuki::getAngularVelocity
-- kobuki::Kobuki::versionInfo : hardware, firmware and software version strings.
-- kobuki::Kobuki::getWheelJointStates
-- kobuki::Kobuki::isAlive : true if a kobuki is detected and streaming data.
-- kobuki::Kobuki::isEnabled : true if the motor power is enabled
-- kobuki::Kobuki::isShutdown : true if the worker threads for this driver have been shut down.
+- xbot::xbot::batteryStatus
+- xbot::xbot::getHeading
+- xbot::xbot::getAngularVelocity
+- xbot::xbot::versionInfo : hardware, firmware and software version strings.
+- xbot::xbot::getWheelJointStates
+- xbot::xbot::isAlive : true if a xbot is detected and streaming data.
+- xbot::xbot::isEnabled : true if the motor power is enabled
+- xbot::xbot::isShutdown : true if the worker threads for this driver have been shut down.
 
 
-@subsection kobukiSoftCommands Soft Commands
+@subsection xbotSoftCommands Soft Commands
 
-- kobuki::Kobuki::resetOdometry
+- xbot::xbot::resetOdometry
 
-@subsection kobukiHardCommands Hard Commands
+@subsection xbotHardCommands Hard Commands
 
-- kobuki::Kobuki::setBaseControl
-- kobuki::Kobuki::setLed
-- kobuki::Kobuki::setDigitalOutput
-- kobuki::Kobuki::setExternalPower
-- kobuki::Kobuki::playSoundSequence
-- kobuki::Kobuki::setControllerGain
-- kobuki::Kobuki::getControllerGain
+- xbot::xbot::setBaseControl
+- xbot::xbot::setLed
+- xbot::xbot::setDigitalOutput
+- xbot::xbot::setExternalPower
+- xbot::xbot::playSoundSequence
+- xbot::xbot::setControllerGain
+- xbot::xbot::getControllerGain
 
 @subsection differentialDriverModule The Differential Drive Module
 
-The final function of importance is the @ref kobuki::Kobuki::updateOdometry method. This updates the current odometry state
+The final function of importance is the @ref xbot::xbot::updateOdometry method. This updates the current odometry state
 of the robot, fusing encoder and gyro heading data with the previous known state. For deterministic odometry, it is important
-this method is called each time a new data packet from the kobuki arrives. Refer to the 
+this method is called each time a new data packet from the xbot arrives. Refer to the 
 @ref enSimpleExample "simple control loop example" for more information and working code to illustrate.
 
 **/
