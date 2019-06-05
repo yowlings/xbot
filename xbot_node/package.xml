@@ -28,8 +28,7 @@
   <!-- Xbot -->
   <build_depend>xbot_msgs</build_depend>
   <build_depend>xbot_driver</build_depend>
-  <build_depend>xbot_ftdi</build_depend>
-  <build_depend>xbot_keyop</build_depend>
+  <build_depend>xbot_talker</build_depend>
   <build_depend>xbot_safety_controller</build_depend>
 
   <!-- ECL -->
@@ -61,8 +60,8 @@
   <run_depend>xbot_rapps</run_depend>
   <run_depend>xbot_msgs</run_depend>
   <run_depend>xbot_driver</run_depend>
-  <run_depend>xbot_ftdi</run_depend>
-  <run_depend>xbot_keyop</run_depend>
+
+  <run_depend>xbot_talker</run_depend>
   <run_depend>xbot_safety_controller</run_depend>
 
   <!-- ECL -->

@@ -48,11 +48,17 @@ XBot-U机器人是一款面向高校与科研院所研发的双轮差分式移�
 7. wev_video_server
 8. rosbridge_server.launch
 
-更多使用方法，可单独启动以上单个launch或者节点文件，或者前往参考xbot的roswiki软件说明。
+更多使用方法，可单独启动以上单个launch或者节点文件。
+
+## 参考链接
+
+- [ROSwiki xbot tutorials](<http://wiki.ros.org/Robots/Xbot/tutorial/cn>)
+- [ROSwiki xbot软件说明](http://wiki.ros.org/xbot )
+- [重德智能](https://www.droid.ac.cn/)
+- [XBot-U机器人网站介绍](https://www.droid.ac.cn/xbot_u.html)
+- [中国大学慕课-机器人操作系统入门](https://www.icourse163.org/course/0802ISCAS001-1002580008)
 
 ## 联系我们
-
-**XBot-U机器人网站**：<https://www.droid.ac.cn/xbot_u.html>
 
 **商务合作**：bd@droid.ac.cn
 
