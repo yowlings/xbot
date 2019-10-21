@@ -27,12 +27,11 @@ catkin_install_python(PROGRAMS  scripts/xbot_keyboard_teleop.py
 install(DIRECTORY urdf
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
-install(FILES urdf_gazebo.rviz
+
+install(DIRECTORY rviz
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
-install(FILES urdf.rviz
-        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
+
 install(DIRECTORY worlds
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )

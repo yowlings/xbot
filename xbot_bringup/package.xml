@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 <package>
   <name>xbot_bringup</name>
-  <version>1.2.1</version>
+  <version>3.0.1</version>
   <description>The xbot_bringup package</description>
-  <author>Roc</author>
-  <author>wangpeng@droid.ac.cn</author>
+  <author>Rocwang</author>
   <author>Changkun</author>
   <maintainer email="chaichangkun@163.com">Chai Changkun</maintainer>
   <maintainer email="wangpeng@droid.ac.cn">Roc</maintainer>
-  <license>LGPL</license>
+  <license>BSD</license>
   <build_depend>message_generation</build_depend>
   <run_depend>message_runtime</run_depend>
   <buildtool_depend>catkin</buildtool_depend>
@@ -20,15 +19,18 @@
   <run_depend>roscpp</run_depend>
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
+  <run_depend>rplidar_ros</run_depend>
+  <run_depend>xbot_face</run_depend>
+  <run_depend>xbot_talker</run_depend>
+  <run_depend>web_video_server</run_depend>
+  <run_depend>rviz</run_depend>
+  <run_depend>yocs_cmd_vel_mux</run_depend>
+
 
   <build_depend>geometry_msgs</build_depend>
-  <build_depend>visualization_msgs</build_depend>
-  <build_depend>tf</build_depend>
-  <build_depend>rospkg</build_depend>
-
   <run_depend>geometry_msgs</run_depend>
-  <run_depend>visualization_msgs</run_depend>
-  <run_depend>tf</run_depend>
-  <run_depend>rospkg</run_depend>
+
+  <build_depend>sensor_msgs</build_depend>
+  <run_depend>sensor_msgs</run_depend>
 
 </package>

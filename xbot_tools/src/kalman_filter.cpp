@@ -14,7 +14,7 @@ public:
         H=1.0;
 
         pub = nh.advertise<xbot_msgs::Battery>("/mobile_base/sensors/battery_filtered", 1);
-        sub = nh.subscribe("//mobile_base/sensors/battery",3,&kalman_filter::call_back,this);
+        sub = nh.subscribe("/mobile_base/sensors/battery",3,&kalman_filter::call_back,this);
     }
 
     void call_back(const xbot_msgs::Battery measure)

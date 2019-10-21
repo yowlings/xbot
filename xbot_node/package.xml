@@ -1,15 +1,14 @@
 <package>
   <name>xbot_node</name>
-  <version>0.6.7</version>
+  <version>3.0.1</version>
   <description>
       ROS nodelet for Xbot: ROS wrapper for the Xbot driver.
   </description>
   <author>Roc</author>
   <author>wangpeng@droid.ac.cn</author>
   <maintainer email="wangpeng@droid.ac.cn">Roc</maintainer>
-  <license>LGPL</license>  
+  <license>BSD</license>  
   <url type="website">http://ros.org/wiki/xbot_node</url>
-
   <buildtool_depend>catkin</buildtool_depend>
 
   <!-- ROS -->
@@ -20,17 +19,12 @@
   <build_depend>std_msgs</build_depend>
   <build_depend>tf</build_depend>
   <build_depend>angles</build_depend>
-  <build_depend>diagnostic_updater</build_depend>
-  <build_depend>diagnostic_msgs</build_depend>
   <build_depend>nodelet</build_depend>
   <build_depend>pluginlib</build_depend>
-
   <!-- Xbot -->
   <build_depend>xbot_msgs</build_depend>
   <build_depend>xbot_driver</build_depend>
   <build_depend>xbot_talker</build_depend>
-  <build_depend>xbot_safety_controller</build_depend>
-
   <!-- ECL -->
   <build_depend>ecl_exceptions</build_depend>
   <build_depend>ecl_sigslots</build_depend>
@@ -57,12 +51,9 @@
   <run_depend>pluginlib</run_depend>
 
   <!-- Xbot -->
-  <run_depend>xbot_rapps</run_depend>
   <run_depend>xbot_msgs</run_depend>
   <run_depend>xbot_driver</run_depend>
-
   <run_depend>xbot_talker</run_depend>
-  <run_depend>xbot_safety_controller</run_depend>
 
   <!-- ECL -->
   <run_depend>ecl_exceptions</run_depend>
