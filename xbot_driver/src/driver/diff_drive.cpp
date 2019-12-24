@@ -22,21 +22,23 @@ namespace xbot {
 /*****************************************************************************
 ** Implementation
 *****************************************************************************/
-DiffDrive::DiffDrive() :
-  last_velocity_left(0.0),
-  last_velocity_right(0.0),
-  last_tick_left(0),
-  last_tick_right(0),
-  last_rad_left(0.0),
-  last_rad_right(0.0),
-//  v(0.0), w(0.0), // command velocities, in [m/s] and [rad/s]
-  angular_velocity(0.0), linear_velocity(0.0), // command velocities, in [mm] and [mm/s]
-  point_velocity(2,0.0), // command velocities, in [m/s] and [rad/s]
-  bias(0.45), // wheelbase, wheel_to_wheel, in [m]
-  wheel_radius(0.098), // radius of main wheel, in [m]
-  tick_to_rad(3.1415926f*2/20000),//减速比1:16的为 32000tick/loop;1:10的为20000tick/loop
-  diff_drive_kinematics(bias, wheel_radius)
-{}
+DiffDrive::DiffDrive()
+    : last_velocity_left(0.0),
+      last_velocity_right(0.0),
+      last_tick_left(0),
+      last_tick_right(0),
+      last_rad_left(0.0),
+      last_rad_right(0.0),
+      //  v(0.0), w(0.0), // command velocities, in [m/s] and [rad/s]
+      angular_velocity(0.0),
+      linear_velocity(0.0),    // command velocities, in [mm] and [mm/s]
+      point_velocity(2, 0.0),  // command velocities, in [m/s] and [rad/s]
+      bias(0.46),              // wheelbase, wheel_to_wheel, in [m]
+      wheel_radius(0.0935),    // radius of main wheel, in [m]
+      tick_to_rad(
+          3.1415926f * 2 /
+          20000),  //减速比1:16的为 32000tick/loop;1:10的为20000tick/loop
+      diff_drive_kinematics(bias, wheel_radius) {}
 
 /**
  * @brief Updates the odometry from firmware stamps and encoders.
@@ -61,12 +63,11 @@ void DiffDrive::update(const unsigned int &time_stamp,
   float right_diff_ticks = 0.0f;
   unsigned short curr_tick_left = 0;
   unsigned short curr_tick_right = 0;
-//  unsigned short tmp_diff_time = 0;
+  //  unsigned short tmp_diff_time = 0;
   unsigned int curr_timestamp = 0;
   curr_timestamp = time_stamp;
   curr_tick_left = left_encoder;
-  if (!init_l)
-  {
+  if (!init_l) {
     last_tick_left = curr_tick_left;
     init_l = true;
   }
@@ -75,24 +76,27 @@ void DiffDrive::update(const unsigned int &time_stamp,
   last_rad_left -= tick_to_rad * left_diff_ticks;
 
   curr_tick_right = right_encoder;
-  if (!init_r)
-  {
+  if (!init_r) {
     last_tick_right = curr_tick_right;
     init_r = true;
   }
-  right_diff_ticks = (float)(short)((curr_tick_right - last_tick_right) & 0xffff);
+  right_diff_ticks =
+      (float)(short)((curr_tick_right - last_tick_right) & 0xffff);
   last_tick_right = curr_tick_right;
   last_rad_right -= tick_to_rad * right_diff_ticks;
 
-  // TODO this line and the last statements are really ugly; refactor, put in another place
-  pose_update = diff_drive_kinematics.forward((double)(tick_to_rad * left_diff_ticks), (double)(tick_to_rad * right_diff_ticks));
-//  std::cout<<"1"<<pose_update<<std::endl;
+  // TODO this line and the last statements are really ugly; refactor, put in
+  // another place
+  pose_update =
+      diff_drive_kinematics.forward((double)(tick_to_rad * left_diff_ticks),
+                                    (double)(tick_to_rad * right_diff_ticks));
+  //  std::cout<<"1"<<pose_update<<std::endl;
 
-  if (curr_timestamp != last_timestamp)
-  {
-
-    last_diff_time =((double)(short)((curr_timestamp - last_timestamp) & 0xffff )) / 1000000.0f;
-    std::cout<<"diff_time: "<<last_diff_time<<std::endl;
+  if (curr_timestamp != last_timestamp) {
+    last_diff_time =
+        ((double)(short)((curr_timestamp - last_timestamp) & 0xffff)) /
+        1000000.0f;
+    std::cout << "diff_time: " << last_diff_time << std::endl;
     last_timestamp = curr_timestamp;
     last_velocity_left = (tick_to_rad * left_diff_ticks) / last_diff_time;
     last_velocity_right = (tick_to_rad * right_diff_ticks) / last_diff_time;
@@ -100,10 +104,9 @@ void DiffDrive::update(const unsigned int &time_stamp,
     // we need to set the last_velocity_xxx to zero?
   }
 
-  pose_update_rates << pose_update.x()/last_diff_time,
-                       pose_update.y()/last_diff_time,
-                       pose_update.heading()/last_diff_time;
-//  std::cout<<"2"<<pose_update_rates<<std::endl;
+  pose_update_rates << pose_update.x() / last_diff_time,
+      pose_update.y() / last_diff_time, pose_update.heading() / last_diff_time;
+  //  std::cout<<"2"<<pose_update_rates<<std::endl;
   state_mutex.unlock();
 }
 
@@ -116,8 +119,10 @@ void DiffDrive::reset() {
   state_mutex.unlock();
 }
 
-void DiffDrive::getWheelJointStates(float &wheel_left_angle, float &wheel_left_angle_rate,
-                                    float &wheel_right_angle, float &wheel_right_angle_rate) {
+void DiffDrive::getWheelJointStates(float &wheel_left_angle,
+                                    float &wheel_left_angle_rate,
+                                    float &wheel_right_angle,
+                                    float &wheel_right_angle_rate) {
   state_mutex.lock();
   wheel_left_angle = last_rad_left;
   wheel_right_angle = last_rad_right;
@@ -142,20 +147,17 @@ void DiffDrive::velocityCommands(const float &vx, const float &wz) {
   linear_velocity = vx;
   angular_velocity = wz;
   velocity_mutex.unlock();
-    return;
+  return;
 }
 
-
-std::vector<float> DiffDrive::pointVelocity() const {
-  return point_velocity;
-}
+std::vector<float> DiffDrive::pointVelocity() const { return point_velocity; }
 
 std::vector<float> DiffDrive::velocityCommands() {
   velocity_mutex.lock();
   std::vector<float> cmd(2);
-  cmd[0] = linear_velocity;  // In [m/s]
-  cmd[1] = angular_velocity*180/ecl::pi; // In [degree/s]
-//  cmd[1] = angular_velocity; // In [rad/s]
+  cmd[0] = linear_velocity;                   // In [m/s]
+  cmd[1] = angular_velocity * 180 / ecl::pi;  // In [degree/s]
+  //  cmd[1] = angular_velocity; // In [rad/s]
   velocity_mutex.unlock();
   return cmd;
 }
@@ -166,4 +168,4 @@ short DiffDrive::bound(const float &value) {
   return static_cast<short>(value);
 }
 
-} // namespace xbot
+}  // namespace xbot
