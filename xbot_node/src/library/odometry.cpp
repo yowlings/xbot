@@ -105,7 +105,7 @@ void Odometry::update(const ecl::Pose2D<double> &pose_update,
 
   if (use_imu_heading == true) {
     // Overwite with gyro heading data
-    pose.heading(imu_heading);
+    pose.heading() = imu_heading;
     //    pose_update_rates[2] = imu_angular_velocity;
   }
 

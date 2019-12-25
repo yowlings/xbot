@@ -92,9 +92,7 @@ bool Sensors::deserialise(ecl::PushAndPop<unsigned char>& byteStream) {
   //  IMU9250计算出的三轴角度
 
   buildVariable(data.yaw, byteStream);
-  data.yaw = data.yaw;
   buildVariable(data.pitch, byteStream);
-  data.pitch = data.pitch;
   buildVariable(data.roll, byteStream);
   //  IMU9250计算出的四元数
   buildVariable(data.q1, byteStream);
