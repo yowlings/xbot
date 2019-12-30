@@ -116,10 +116,10 @@ void XbotRos::publishEchoData() {
       CoreSensors::Data data_echo = xbot.getCoreSensorData();
       msg.header.frame_id = "echo_link";
       msg.header.stamp = ros::Time::now();
-      msg.front = data_echo.front_echo / 5880;
-      msg.rear = data_echo.rear_echo / 5880;
+      msg.front = data_echo.front_echo / 5880.0;
+      msg.rear = data_echo.rear_echo / 5880.0;
       msg.front_near = (msg.front < xbot_msgs::Echo::NEAR_THRESH);
-      msg.rear_near = (data_echo.rear_echo < xbot_msgs::Echo::NEAR_THRESH);
+      msg.rear_near = (msg.rear < xbot_msgs::Echo::NEAR_THRESH);
       echo_data_publisher.publish(msg);
     }
   }
