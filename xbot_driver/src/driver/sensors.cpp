@@ -68,13 +68,13 @@ bool Sensors::deserialise(ecl::PushAndPop<unsigned char>& byteStream) {
   //  音频状态
   buildVariable(data.sound_status, byteStream);
 
-  uint16_t tmp;
+  int16_t tmp;
   buildVariable(tmp, byteStream);
   data.acc_x = tmp * 0.00006086 * 9.8;
   buildVariable(tmp, byteStream);
   data.acc_y = tmp * 0.00006086 * 9.8;
   buildVariable(tmp, byteStream);
-  data.acc_z = (tmp * 0.00006086 - 1) * 9.8;
+  data.acc_z = tmp * 0.00006086 * 9.8;
   buildVariable(tmp, byteStream);
   data.gyro_x = tmp * 4 * 0.0152139846947314 * 3.1415926 / 180;
   buildVariable(tmp, byteStream);

@@ -154,7 +154,7 @@ class xbot_PUBLIC Xbot {
   //  用于调试数据的显示
   int getDebugSensors() const;
   //  获取角速度
-  float getAngularVelocity() const;
+  double getAngularVelocity() const;
   //  获取水平转台角度
   unsigned char getYawPlatformDegree() const;
   //  获取竖直转台角度

@@ -1,10 +1,11 @@
 Header header
 
-float64 ECHO_MAX_RANGE = 3.0
-float64 ECHO_MIN_RANGE = 0.3
+float64 MAX_RANGE = 3.0
+float64 MIN_RANGE = 0.3
+float64 NEAR_THRESH = 0.4
 bool front_near
 bool rear_near
 
-uint16 front
-uint16 rear
+float64 front
+float64 rear
 

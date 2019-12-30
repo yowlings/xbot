@@ -62,7 +62,6 @@ XbotRos::XbotRos(std::string& node_name)
       cmd_vel_timed_out_(false),
       base_serial_timed_out_(false),
       sensor_serial_timed_out_(false),
-      announced_battery(false),
       base_slot_stream_data(&XbotRos::processBaseStreamData, *this),
       sensor_slot_stream_data(&XbotRos::processSensorStreamData, *this) {}
 
@@ -75,28 +74,14 @@ XbotRos::~XbotRos() {
   ROS_INFO_STREAM("Xbot : waiting for xbot thread to finish [" << name << "].");
   xbot.setSoundEnableControl(false);
   xbot.setLedControl(0);
-  client_thread.join();
 }
 
-void XbotRos::call_srv() {
-  xbot_talker::play srv;
-  srv.request.mode = 2;
-  //  std::string s1;
-  //  s1="我";
-  //  std::string s2;
-  //  s2=s1+std::to_string();
-
-  srv.request.tts_text = "机器人已启动并准备就绪！";
-  srv_play.call(srv);
-}
 bool XbotRos::init(ros::NodeHandle& nh) {
   /*********************
    ** Communications
    **********************/
   advertiseTopics(nh);
   subscribeTopics(nh);
-
-  srv_play = nh.serviceClient<xbot_talker::play>("/xbot/play");
 
   /*********************
    ** Slots
@@ -356,8 +341,6 @@ void XbotRos::subscribeTopics(ros::NodeHandle& nh) {
                    &XbotRos::subscribeSoundCommand, this);
   led_command_subscriber = nh.subscribe(std::string("commands/led"), 10,
                                         &XbotRos::subscribeLedCommand, this);
-  lift_command_subscirber =
-      nh.subscribe("commands/lift", 10, &XbotRos::subscribeLiftCommand, this);
   reset_odometry_subscriber = nh.subscribe(
       "commands/reset_odometry", 10, &XbotRos::subscribeResetOdometry, this);
 }

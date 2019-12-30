@@ -116,10 +116,10 @@ void XbotRos::publishEchoData() {
       CoreSensors::Data data_echo = xbot.getCoreSensorData();
       msg.header.frame_id = "echo_link";
       msg.header.stamp = ros::Time::now();
-      msg.front = data_echo.front_echo;
-      msg.rear = data_echo.rear_echo;
-      msg.front_near = (data_echo.front_echo < 1600);
-      msg.rear_near = (data_echo.rear_echo < 1600);
+      msg.front = data_echo.front_echo / 5880;
+      msg.rear = data_echo.rear_echo / 5880;
+      msg.front_near = (msg.front < xbot_msgs::Echo::NEAR_THRESH);
+      msg.rear_near = (data_echo.rear_echo < xbot_msgs::Echo::NEAR_THRESH);
       echo_data_publisher.publish(msg);
     }
   }
@@ -132,10 +132,14 @@ void XbotRos::publishInfraredData() {
       CoreSensors::Data data_core = xbot.getCoreSensorData();
       msg.header.frame_id = "infrared_link";
       msg.header.stamp = ros::Time::now();
-      msg.front = data_core.front_infrared;
-      msg.rear = data_core.rear_infrared;
-      msg.front_hanged = (data_core.front_infrared > 2000);
-      msg.rear_hanged = (data_core.rear_infrared > 2000);
+      msg.front =
+          (12.63 / (data_core.front_infrared * 3.3 / 4096 - 0.042) - 0.042) /
+          100.0;
+      msg.rear =
+          (12.63 / (data_core.rear_infrared * 3.3 / 4096 - 0.042) - 0.042) /
+          100.0;
+      msg.front_hanged = (msg.front - 0.02 > xbot_msgs::InfraRed::PLAT_HEIGHT);
+      msg.rear_hanged = (msg.rear - 0.02 > xbot_msgs::InfraRed::PLAT_HEIGHT);
       infrared_data_publisher.publish(msg);
     }
   }
@@ -169,14 +173,6 @@ void XbotRos::publishBatteryState() {
       leds = pow(2, leds) - 1;
       xbot.setLedControl(leds);
     }
-
-    if (!announced_battery) {
-      client_thread.start(&XbotRos::call_srv, *this);
-
-      announced_battery = true;
-    }
-
-    //    }
   }
 }
 
@@ -250,7 +246,9 @@ void XbotRos::publishInertia() {
     Sensors::Data data = xbot.getExtraSensorsData();
     imu_msg.header.stamp = ros::Time::now();
     imu_msg.header.frame_id = "imu_link";
-    imu_msg.orientation = tf::createQuaternionMsgFromYaw(xbot.getHeading());
+    imu_msg.orientation = tf::createQuaternionMsgFromRollPitchYaw(
+        data.roll, data.pitch, data.yaw);
+
     imu_msg.orientation_covariance[0] = 10.01;
     imu_msg.orientation_covariance[4] = 10.01;
     imu_msg.orientation_covariance[8] = 10.01;

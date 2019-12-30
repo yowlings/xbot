@@ -43,14 +43,7 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 target_link_libraries(pub_camera_image ${OpenCV_LIBS})
 target_link_libraries(pub_camera_image ${catkin_LIBRARIES})
 
-add_executable(wenhou src/wenhou.cpp)
-target_link_libraries(wenhou ${catkin_LIBRARIES})
-add_dependencies(wenhou xbot_face_gencpp)
-
 install(TARGETS pub_camera_image
-        DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-install(TARGETS wenhou
         DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 install(DIRECTORY launch

@@ -496,9 +496,9 @@ double Xbot::getHeading() const {
 int Xbot::getDebugSensors() const {
   return (static_cast<int>(core_sensors.data.left_encoder));
 }
-float Xbot::getAngularVelocity() const {
+double Xbot::getAngularVelocity() const {
   // raw data angles are in hundredths of a degree, convert to radians.
-  return static_cast<float>(sensors.data.gyro_z);
+  return static_cast<double>(sensors.data.gyro_z);
 }
 
 void Xbot::resetXbotState() {

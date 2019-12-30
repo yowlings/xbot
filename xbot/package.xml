@@ -3,7 +3,9 @@
     <version>3.0.1</version>
     <description>
         --------------------------------------------------------------------------
-        A group of ROS packages for xbot-u user using. The matapackage includes driver,ros node , face recognition, navigation(SLAM, navigation)and talker package, for learning and searching robot technology aside with ROS_Academy_for_beginners.
+        A group of ROS packages for xbot-u user using.
+        The matapackage includes driver,ros node , face recognition, navigation(SLAM, navigation)and talker package,
+        for learning and searching robot technology aside with ROS_Academy_for_beginners.
         --------------------------------------------------------------------------
     </description>
     <maintainer email="wangpeng@droid.ac.cn">Rocwang</maintainer>

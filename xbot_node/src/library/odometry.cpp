@@ -106,7 +106,7 @@ void Odometry::update(const ecl::Pose2D<double> &pose_update,
   if (use_imu_heading == true) {
     // Overwite with gyro heading data
     pose.heading() = imu_heading;
-    //    pose_update_rates[2] = imu_angular_velocity;
+    pose_update_rates[2] = imu_angular_velocity;
   }
 
   // since all ros tf odometry is 6DOF we'll need a quaternion created from yaw

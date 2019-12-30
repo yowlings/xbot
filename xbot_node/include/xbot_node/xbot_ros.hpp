@@ -44,38 +44,36 @@
  ** Includes
  *****************************************************************************/
 
-#include <string>
 #include <boost/shared_ptr.hpp>
+#include <string>
 
-#include <ros/ros.h>
 #include <angles/angles.h>
+#include <ros/ros.h>
 
-#include <std_msgs/Empty.h>
-#include <std_msgs/String.h>
 #include <std_msgs/Bool.h>
-#include <std_msgs/Int8.h>
-#include <std_msgs/UInt8.h>
+#include <std_msgs/Empty.h>
 #include <std_msgs/Int16MultiArray.h>
+#include <std_msgs/Int8.h>
+#include <std_msgs/String.h>
+#include <std_msgs/UInt8.h>
 
-#include <sensor_msgs/JointState.h>
 #include <sensor_msgs/Imu.h>
+#include <sensor_msgs/JointState.h>
 
+#include <xbot_msgs/Battery.h>
+#include <xbot_msgs/CoreSensor.h>
+#include <xbot_msgs/Echo.h>
+#include <xbot_msgs/ExtraSensor.h>
+#include <xbot_msgs/InfraRed.h>
 #include <ecl/sigslots.hpp>
 #include <ecl/threads.hpp>
-#include <xbot_msgs/CoreSensor.h>
-#include <xbot_msgs/ExtraSensor.h>
-#include <xbot_msgs/Echo.h>
-#include <xbot_msgs/InfraRed.h>
-#include <xbot_msgs/Battery.h>
 
-
-#include <xbot_driver/xbot.hpp>
-#include <xbot_msgs/XbotState.h>
 #include <xbot_msgs/RawImu.h>
+#include <xbot_msgs/XbotState.h>
+#include <xbot_driver/xbot.hpp>
 
 #include <geometry_msgs/Quaternion.h>
 #include "odometry.hpp"
-
 
 #include <xbot_talker/play.h>
 
@@ -83,35 +81,30 @@
  ** Namespaces
  *****************************************************************************/
 
-namespace xbot
-{
-class XbotRos
-{
-public:
+namespace xbot {
+class XbotRos {
+ public:
   XbotRos(std::string& node_name);
   ~XbotRos();
   bool init(ros::NodeHandle& nh);
   bool update();
-  void call_srv();
 
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-private:
+ private:
   /*********************
    ** Variables
    **********************/
-  std::string name; // name of the ROS node
+  std::string name;  // name of the ROS node
   Xbot xbot;
   sensor_msgs::JointState joint_states;
   Odometry odometry;
-  bool cmd_vel_timed_out_; // stops warning spam when cmd_vel flags as timed out more than once in a row
-  bool base_serial_timed_out_; // stops warning spam when serial connection timed out more than once in a row
+  bool cmd_vel_timed_out_;  // stops warning spam when cmd_vel flags as timed
+                            // out more than once in a row
+  bool base_serial_timed_out_;  // stops warning spam when serial connection
+                                // timed out more than once in a row
   bool sensor_serial_timed_out_;
 
   bool led_indicate_battery;
-  bool announced_battery;
-  ros::ServiceClient srv_play;
-  ecl::Thread client_thread;
-
 
   /*********************
    ** Ros Publishers
@@ -130,7 +123,6 @@ private:
   ros::Publisher joint_state_publisher;
   ros::Publisher robot_state_publisher;
 
-
   /*********************
    ** Ros Subscribers
    **********************/
@@ -140,7 +132,6 @@ private:
   ros::Subscriber pitch_platform_command_subscriber;
   ros::Subscriber sound_command_subscriber;
   ros::Subscriber led_command_subscriber;
-  ros::Subscriber lift_command_subscirber;
   ros::Subscriber reset_odometry_subscriber;
 
   void advertiseTopics(ros::NodeHandle& nh);
@@ -175,7 +166,6 @@ private:
   void publishBatteryState();
   void publishStopButtonState();
 
-
   /*********************
    ** Sensor Slot Callbacks
    **********************/
@@ -187,11 +177,8 @@ private:
   void publishInertia();
   void publishRawInertia();
   void publishRobotState();
-
-
-
 };
 
-} // namespace xbot
+}  // namespace xbot
 
 #endif /* XBOT_ROS_HPP_ */
