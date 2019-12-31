@@ -246,26 +246,26 @@ void XbotRos::publishInertia() {
     Sensors::Data data = xbot.getExtraSensorsData();
     imu_msg.header.stamp = ros::Time::now();
     imu_msg.header.frame_id = "imu_link";
-    imu_msg.orientation = tf::createQuaternionMsgFromRollPitchYaw(
-        data.roll, data.pitch, data.yaw);
+    //    imu_msg.orientation = tf::createQuaternionMsgFromRollPitchYaw(
+    //        data.roll, data.pitch, data.yaw);
 
-    imu_msg.orientation_covariance[0] = 10.01;
-    imu_msg.orientation_covariance[4] = 10.01;
-    imu_msg.orientation_covariance[8] = 10.01;
+    //    imu_msg.orientation_covariance[0] = 10.01;
+    //    imu_msg.orientation_covariance[4] = 10.01;
+    //    imu_msg.orientation_covariance[8] = 10.01;
 
     imu_msg.angular_velocity.x = data.gyro_x;
     imu_msg.angular_velocity.y = data.gyro_y;
     imu_msg.angular_velocity.z = data.gyro_z;
-    imu_msg.angular_velocity_covariance[0] = 10.01;
-    imu_msg.angular_velocity_covariance[4] = 10.01;
-    imu_msg.angular_velocity_covariance[8] = 10.01;
+    //    imu_msg.angular_velocity_covariance[0] = 10.01;
+    //    imu_msg.angular_velocity_covariance[4] = 10.01;
+    //    imu_msg.angular_velocity_covariance[8] = 10.01;
 
     imu_msg.linear_acceleration.x = data.acc_x;
     imu_msg.linear_acceleration.y = data.acc_y;
     imu_msg.linear_acceleration.z = data.acc_z;
-    imu_msg.linear_acceleration_covariance[0] = 0.01;
-    imu_msg.linear_acceleration_covariance[4] = 0.01;
-    imu_msg.linear_acceleration_covariance[8] = 0.01;
+    //    imu_msg.linear_acceleration_covariance[0] = 0.01;
+    //    imu_msg.linear_acceleration_covariance[4] = 0.01;
+    //    imu_msg.linear_acceleration_covariance[8] = 0.01;
 
     imu_data_publisher.publish(imu_msg);
   }
