@@ -18,7 +18,6 @@
 	<!-- state publisher -->
 	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
 	<param name="publish_frequency" type="double" value="20.0" />
-	<param name="use_tf_static" value="false" />
 	</node>
 
 	<!-- xbot driver -->
