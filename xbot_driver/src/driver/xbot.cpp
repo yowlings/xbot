@@ -278,10 +278,11 @@ void Xbot::base_spin() {
           base_fixPayload(base_data_buffer);
           break;
         }
-        base_sig_stream_data.emit();
+
       }
       // std::cout << "---" << std::endl;
       base_unlockDataAccess();
+      base_sig_stream_data.emit();
 
       base_is_alive = true;
       last_signal_time.stamp();
@@ -427,10 +428,11 @@ void Xbot::sensor_spin() {
           heading_offset =
               static_cast<double>(sensors.data.yaw) * ecl::pi / 180.0;
         }
-        sensor_sig_stream_data.emit();
+
       }
       // std::cout << "---" << std::endl;
       sensor_unlockDataAccess();
+      sensor_sig_stream_data.emit();
 
       sensor_is_alive = true;
       last_signal_time.stamp();

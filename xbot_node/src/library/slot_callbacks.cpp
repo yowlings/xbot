@@ -111,16 +111,25 @@ void XbotRos::publishCoreSensor() {
 
 void XbotRos::publishEchoData() {
   if (ros::ok()) {
-    if (echo_data_publisher.getNumSubscribers() > 0) {
-      xbot_msgs::Echo msg;
+    if (front_echo_data_publisher.getNumSubscribers() > 0||rear_echo_data_publisher.getNumSubscribers() > 0) {
+      sensor_msgs::Range front_msg,rear_msg;
       CoreSensors::Data data_echo = xbot.getCoreSensorData();
-      msg.header.frame_id = "echo_link";
-      msg.header.stamp = ros::Time::now();
-      msg.front = data_echo.front_echo / 5880.0;
-      msg.rear = data_echo.rear_echo / 5880.0;
-      msg.front_near = (msg.front < xbot_msgs::Echo::NEAR_THRESH);
-      msg.rear_near = (msg.rear < xbot_msgs::Echo::NEAR_THRESH);
-      echo_data_publisher.publish(msg);
+      front_msg.header.frame_id = "front_echo_link";
+      front_msg.header.stamp = ros::Time::now();
+      front_msg.radiation_type = sensor_msgs::Range::ULTRASOUND;
+      front_msg.field_of_view = 60*M_PI/180.0;
+      front_msg.max_range = 2.0;
+      front_msg.min_range = 0.1;
+      front_msg.range = data_echo.front_echo / 5880.0;
+      rear_msg.header.frame_id = "rear_echo_link";
+      rear_msg.header.stamp = ros::Time::now();
+      rear_msg.radiation_type = sensor_msgs::Range::ULTRASOUND;
+      rear_msg.field_of_view = 60*M_PI/180.0;
+      rear_msg.max_range = 2.0;
+      rear_msg.min_range = 0.1;
+      rear_msg.range = data_echo.rear_echo / 5880.0;
+      rear_echo_data_publisher.publish(rear_msg);
+      front_echo_data_publisher.publish(front_msg);
     }
   }
 }
@@ -171,7 +180,9 @@ void XbotRos::publishBatteryState() {
     if (led_indicate_battery) {
       unsigned char leds = msg.battery_percent / 25 + 1;
       leds = pow(2, leds) - 1;
-      xbot.setLedControl(leds);
+      if(leds!=last_leds_) xbot.setLedControl(leds);
+      last_leds_ = leds;
+
     }
   }
 }

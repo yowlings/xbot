@@ -59,6 +59,7 @@ namespace xbot {
  */
 XbotRos::XbotRos(std::string& node_name)
     : name(node_name),
+      last_leds_(5),
       cmd_vel_timed_out_(false),
       base_serial_timed_out_(false),
       sensor_serial_timed_out_(false),
@@ -309,7 +310,8 @@ void XbotRos::advertiseTopics(ros::NodeHandle& nh) {
   battery_state_publisher =
       nh.advertise<xbot_msgs::Battery>("sensors/battery", 100);
 
-  echo_data_publisher = nh.advertise<xbot_msgs::Echo>("sensors/echo", 100);
+  front_echo_data_publisher = nh.advertise<sensor_msgs::Range>("sensors/front_echo", 100);
+  rear_echo_data_publisher = nh.advertise<sensor_msgs::Range>("sensors/rear_echo", 100);
   infrared_data_publisher =
       nh.advertise<xbot_msgs::InfraRed>("sensors/infrared", 100);
 

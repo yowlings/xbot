@@ -59,6 +59,7 @@
 
 #include <sensor_msgs/Imu.h>
 #include <sensor_msgs/JointState.h>
+#include <sensor_msgs/Range.h>
 
 #include <xbot_msgs/Battery.h>
 #include <xbot_msgs/CoreSensor.h>
@@ -105,6 +106,7 @@ class XbotRos {
   bool sensor_serial_timed_out_;
 
   bool led_indicate_battery;
+  int last_leds_;
 
   /*********************
    ** Ros Publishers
@@ -119,7 +121,7 @@ class XbotRos {
   ros::Publisher imu_data_publisher;
   ros::Publisher raw_imu_data_publisher;
   ros::Publisher infrared_data_publisher;
-  ros::Publisher echo_data_publisher;
+  ros::Publisher front_echo_data_publisher,rear_echo_data_publisher;
   ros::Publisher joint_state_publisher;
   ros::Publisher robot_state_publisher;
 
