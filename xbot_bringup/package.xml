@@ -23,6 +23,9 @@
   <run_depend>xbot_face</run_depend>
   <run_depend>xbot_talker</run_depend>
   <run_depend>web_video_server</run_depend>
+  <run_depend>rosbridge_server</run_depend>
+  <run_depend>realsense2_camera</run_depend>
+  <run_depend>rplidar_ros</run_depend>
   <run_depend>rviz</run_depend>
   <run_depend>yocs_cmd_vel_mux</run_depend>
 

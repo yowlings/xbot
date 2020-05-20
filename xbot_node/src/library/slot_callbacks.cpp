@@ -111,20 +111,21 @@ void XbotRos::publishCoreSensor() {
 
 void XbotRos::publishEchoData() {
   if (ros::ok()) {
-    if (front_echo_data_publisher.getNumSubscribers() > 0||rear_echo_data_publisher.getNumSubscribers() > 0) {
-      sensor_msgs::Range front_msg,rear_msg;
+    if (front_echo_data_publisher.getNumSubscribers() > 0 ||
+        rear_echo_data_publisher.getNumSubscribers() > 0) {
+      sensor_msgs::Range front_msg, rear_msg;
       CoreSensors::Data data_echo = xbot.getCoreSensorData();
       front_msg.header.frame_id = "front_echo_link";
       front_msg.header.stamp = ros::Time::now();
       front_msg.radiation_type = sensor_msgs::Range::ULTRASOUND;
-      front_msg.field_of_view = 60*M_PI/180.0;
+      front_msg.field_of_view = 60 * M_PI / 180.0;
       front_msg.max_range = 2.0;
       front_msg.min_range = 0.1;
       front_msg.range = data_echo.front_echo / 5880.0;
       rear_msg.header.frame_id = "rear_echo_link";
       rear_msg.header.stamp = ros::Time::now();
       rear_msg.radiation_type = sensor_msgs::Range::ULTRASOUND;
-      rear_msg.field_of_view = 60*M_PI/180.0;
+      rear_msg.field_of_view = 60 * M_PI / 180.0;
       rear_msg.max_range = 2.0;
       rear_msg.min_range = 0.1;
       rear_msg.range = data_echo.rear_echo / 5880.0;
@@ -180,9 +181,9 @@ void XbotRos::publishBatteryState() {
     if (led_indicate_battery) {
       unsigned char leds = msg.battery_percent / 25 + 1;
       leds = pow(2, leds) - 1;
-      if(leds!=last_leds_) xbot.setLedControl(leds);
-      last_leds_ = leds;
-
+      if (!(led_times_ % 100)) xbot.setLedControl(leds);
+      led_times_++;
+      if (led_times_ > 1e10) led_times_ = 0;
     }
   }
 }
