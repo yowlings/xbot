@@ -480,7 +480,7 @@ Visualization Manager:
       Single click: true
       Topic: /clicked_point
     - Class: rviz/SetGoal
-      Topic: /mark_coll_position
+      Topic: /move_base_simple/goal
   Value: true
   Views:
     Current:

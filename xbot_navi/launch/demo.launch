@@ -28,22 +28,4 @@
 	<include file="$(find xbot_navi)/launch/include/move_base.launch.xml"/>
 
 
-
-
-	<!--  ************** xbot talker  ***************  -->
-	<include file="$(find xbot_talker)/launch/talker.launch"/>
-
-	<!-- face recog camera image -->
-	<node name="pub_camera_image" pkg="xbot_face" type="pub_camera_image" >
-	</node>
-
-	<include file="$(find xbot_face)/launch/face_recog.launch"/>
-
-	<!--  ************** slam  ***************  -->
-	<node name = "demo" pkg = "xbot_navi" type = "demo.py">
-		<param name = "/demo/kp_path" value = "$(find xbot_navi)/param/kp.json" />
-		<param name = "/demo/greet_path" value = "$(find xbot_navi)/param/greet.json" />
-	</node>
-
-
 </launch>
