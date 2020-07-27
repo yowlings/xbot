@@ -62,6 +62,10 @@ Xbot::Xbot()
  * Shutdown the driver - make sure we wait for the thread to finish.
  */
 Xbot::~Xbot() {
+    for (int i = 0; i < 10; ++i) {
+        setSoundEnableControl(false);
+        setPowerControl(false);
+    }
   disable();
   shutdown_requested = true;  // thread's spin() will catch this and terminate
   base_thread.join();
