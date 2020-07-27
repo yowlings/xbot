@@ -90,7 +90,7 @@ void XbotRos::subscribeResetOdometry(const std_msgs::EmptyConstPtr /* msg */)
 }
 void XbotRos::subscribeMotorEnableCommand(const std_msgs::Bool msg)
 {
-  xbot.setPowerControl(!msg.data);
+  xbot.setPowerControl(msg.data);
 
 }
 

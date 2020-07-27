@@ -54,7 +54,7 @@ public:
     uint16_t front_infrared;
     uint16_t rear_infrared;
 
-    bool stop_button_state;
+    bool stopped;
     float left_motor_current;
     float right_motor_current;
 

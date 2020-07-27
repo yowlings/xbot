@@ -101,11 +101,12 @@ class XbotRos {
   Odometry odometry;
   bool cmd_vel_timed_out_;  // stops warning spam when cmd_vel flags as timed
                             // out more than once in a row
-  bool base_serial_timed_out_;  // stops warning spam when serial connection
+  uint32_t base_timeout_times_;  // stops warning spam when serial connection
                                 // timed out more than once in a row
-  bool sensor_serial_timed_out_;
+  uint32_t sensor_timeout_times_;
 
   bool led_indicate_battery;
+  bool first_sound_enabled_;
   int led_times_;
 
   /*********************
@@ -116,7 +117,7 @@ class XbotRos {
   ros::Publisher yaw_platform_state_publisher;
   ros::Publisher pitch_platform_state_publisher;
   ros::Publisher battery_state_publisher;
-  ros::Publisher stop_buttom_state_publisher;
+  ros::Publisher motor_state_publisher;
   ros::Publisher sound_state_publisher;
   ros::Publisher imu_data_publisher;
   ros::Publisher raw_imu_data_publisher;
@@ -128,6 +129,7 @@ class XbotRos {
   /*********************
    ** Ros Subscribers
    **********************/
+  bool motor_enabled_, sound_enabled_;
   ros::Subscriber motor_enable_command_subscriber;
   ros::Subscriber velocity_command_subscriber;
   ros::Subscriber yaw_platform_command_subscriber;

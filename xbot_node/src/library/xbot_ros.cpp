@@ -60,9 +60,11 @@ namespace xbot {
 XbotRos::XbotRos(std::string& node_name)
     : name(node_name),
       led_times_(0),
+      sound_enabled_(true),
+      motor_enabled_(true),
       cmd_vel_timed_out_(false),
-      base_serial_timed_out_(false),
-      sensor_serial_timed_out_(false),
+      base_timeout_times_(0),
+      sensor_timeout_times_(0),
       base_slot_stream_data(&XbotRos::processBaseStreamData, *this),
       sensor_slot_stream_data(&XbotRos::processSensorStreamData, *this) {}
 
@@ -256,25 +258,25 @@ bool XbotRos::update() {
 
   bool base_is_alive = xbot.base_isAlive();
   if (!base_is_alive) {
-    if (!base_serial_timed_out_) {
+    base_timeout_times_++;
+    if (!base_timeout_times_>40) {
       ROS_ERROR_STREAM(
           "Xbot : Timed out while waiting for base serial data stream ["
           << name << "].");
-      base_serial_timed_out_ = true;
     } else {
-      base_serial_timed_out_ = false;
+      base_timeout_times_ = 0;
     }
   }
 
   bool sensor_is_alive = xbot.sensor_isAlive();
   if (!sensor_is_alive) {
-    if (!sensor_serial_timed_out_) {
+    if (!sensor_timeout_times_>40) {
       ROS_ERROR_STREAM(
           "Xbot : Timed out while waiting for sensor serial data stream ["
           << name << "].");
-      sensor_serial_timed_out_ = true;
+
     } else {
-      sensor_serial_timed_out_ = false;
+      sensor_timeout_times_ = 0;
     }
   }
 
@@ -303,8 +305,8 @@ void XbotRos::advertiseTopics(ros::NodeHandle& nh) {
       nh.advertise<std_msgs::Int8>("sensors/yaw_platform_degree", 100);
   pitch_platform_state_publisher =
       nh.advertise<std_msgs::Int8>("sensors/pitch_platform_degree", 100);
-  stop_buttom_state_publisher =
-      nh.advertise<std_msgs::Bool>("sensors/motor_disabled", 100);
+  motor_state_publisher =
+      nh.advertise<std_msgs::Bool>("sensors/motor_enabled", 100);
   sound_state_publisher =
       nh.advertise<std_msgs::Bool>("sensors/sound_enabled", 100);
   battery_state_publisher =
@@ -329,7 +331,7 @@ void XbotRos::advertiseTopics(ros::NodeHandle& nh) {
  */
 void XbotRos::subscribeTopics(ros::NodeHandle& nh) {
   motor_enable_command_subscriber =
-      nh.subscribe(std::string("commands/motor_disable"), 10,
+      nh.subscribe(std::string("commands/motor_enable"), 10,
                    &XbotRos::subscribeMotorEnableCommand, this);
   velocity_command_subscriber =
       nh.subscribe(std::string("commands/velocity"), 10,

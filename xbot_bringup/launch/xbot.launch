@@ -28,7 +28,6 @@
 	<param name="sim" value="false"/>
 	</include>
 
-	<!-- <node name ="led_show" pkg="xbot_tools" type="pub_topic.py" /> -->
 
 
 

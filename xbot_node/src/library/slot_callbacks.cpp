@@ -100,7 +100,10 @@ void XbotRos::publishCoreSensor() {
       core_sensor.error_state = data.error_state;
       core_sensor.left_motor_current = data.left_motor_current;
       core_sensor.right_motor_current = data.right_motor_current;
-      core_sensor.motor_disabled = data.stop_button_state;
+      core_sensor.motor_enabled = !data.stopped;
+      if(core_sensor.motor_enabled!=motor_enabled_){
+        xbot.setPowerControl(motor_enabled_);
+      }
       core_sensor.time_stamp = data.timestamp;
       core_sensor.version = data.version;
 
@@ -157,11 +160,11 @@ void XbotRos::publishInfraredData() {
 
 void XbotRos::publishStopButtonState() {
   if (ros::ok()) {
-    if (stop_buttom_state_publisher.getNumSubscribers() > 0) {
+    if (motor_state_publisher.getNumSubscribers() > 0) {
       std_msgs::Bool msg;
       CoreSensors::Data data_core = xbot.getCoreSensorData();
-      msg.data = data_core.stop_button_state;
-      stop_buttom_state_publisher.publish(msg);
+      msg.data = !data_core.stopped;
+      motor_state_publisher.publish(msg);
     }
   }
 }
@@ -197,6 +200,7 @@ void XbotRos::publishRobotState() {
     msg.header.stamp = ros::Time::now();
     msg.base_is_connected = xbot.is_base_connected();
     msg.sensor_is_connected = xbot.is_sensor_connected();
+    msg.robot_is_alive = xbot.base_isAlive()&&xbot.sensor_isAlive();
     msg.echo_plug_error = core_data.error_state;
     msg.infrared_plug_error = core_data.error_state;
     msg.motor_error = core_data.error_state;
@@ -219,14 +223,15 @@ void XbotRos::publishExtraSensor() {
   if (ros::ok()) {
     if (extra_sensor_publisher.getNumSubscribers() > 0) {
       xbot_msgs::ExtraSensor extra_sensor;
-
       Sensors::Data data = xbot.getExtraSensorsData();
 
       extra_sensor.header.stamp = ros::Time::now();
-
       extra_sensor.yaw_platform_degree = data.yaw_platform_degree;
       extra_sensor.pitch_platform_degree = data.pitch_platform_degree;
-      extra_sensor.sound_is_mutex = data.sound_status;
+      extra_sensor.sound_enabled = data.sound_enabled;
+      if(extra_sensor.sound_enabled!=sound_enabled_){
+        xbot.setSoundEnableControl(sound_enabled_);
+      }
       extra_sensor.acc_x = data.acc_x;
       extra_sensor.acc_y = data.acc_y;
       extra_sensor.acc_z = data.acc_z;
@@ -332,11 +337,11 @@ void XbotRos::publishPitchPlatformState() {
 void XbotRos::publishSoundState() {
   if (ros::ok()) {
     if (sound_state_publisher.getNumSubscribers() > 0) {
-      std_msgs::Bool sound_is_mute;
+      std_msgs::Bool sound_enabled;
       Sensors::Data data = xbot.getExtraSensorsData();
-      sound_is_mute.data = data.sound_status;
+      sound_enabled.data = data.sound_enabled;
 
-      sound_state_publisher.publish(sound_is_mute);
+      sound_state_publisher.publish(sound_enabled);
     }
   }
 }

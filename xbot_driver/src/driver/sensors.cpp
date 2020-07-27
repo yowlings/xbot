@@ -66,7 +66,7 @@ bool Sensors::deserialise(ecl::PushAndPop<unsigned char>& byteStream) {
   //  竖直转台角度
   buildVariable(data.pitch_platform_degree, byteStream);
   //  音频状态
-  buildVariable(data.sound_status, byteStream);
+  buildVariable(data.sound_enabled, byteStream);
 
   int16_t tmp;
   buildVariable(tmp, byteStream);
