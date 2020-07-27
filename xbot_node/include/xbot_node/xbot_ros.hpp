@@ -168,7 +168,7 @@ class XbotRos {
   void publishEchoData();
   void publishInfraredData();
   void publishBatteryState();
-  void publishStopButtonState();
+  void publishMotorState();
 
   /*********************
    ** Sensor Slot Callbacks

@@ -90,8 +90,7 @@ void XbotRos::subscribeResetOdometry(const std_msgs::EmptyConstPtr /* msg */)
 }
 void XbotRos::subscribeMotorEnableCommand(const std_msgs::Bool msg)
 {
-  xbot.setPowerControl(msg.data);
-
+  motor_enabled_ = msg.data;
 }
 
 void XbotRos::subscribeLiftCommand(const std_msgs::UInt8 msg)
@@ -115,8 +114,7 @@ void XbotRos::subscribeLedCommand(const std_msgs::UInt8 msg)
 
 void XbotRos::subscribeSoundCommand(const std_msgs::Bool msg)
 {
-  xbot.setSoundEnableControl(msg.data);
-
+  sound_enabled_ = msg.data;
 }
 
 

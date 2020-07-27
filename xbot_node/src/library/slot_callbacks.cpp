@@ -51,7 +51,7 @@ void XbotRos::processBaseStreamData() {
   publishCoreSensor();
   publishEchoData();
   publishInfraredData();
-  publishStopButtonState();
+  publishMotorState();
   publishBatteryState();
   publishRobotState();
 }
@@ -158,7 +158,7 @@ void XbotRos::publishInfraredData() {
   }
 }
 
-void XbotRos::publishStopButtonState() {
+void XbotRos::publishMotorState() {
   if (ros::ok()) {
     if (motor_state_publisher.getNumSubscribers() > 0) {
       std_msgs::Bool msg;

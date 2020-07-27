@@ -75,7 +75,8 @@ XbotRos::XbotRos(std::string& node_name)
  */
 XbotRos::~XbotRos() {
   ROS_INFO_STREAM("Xbot : waiting for xbot thread to finish [" << name << "].");
-  xbot.setSoundEnableControl(false);
+  sound_enabled_ = false;
+  motor_enabled_ = false;
   xbot.setLedControl(0);
 }
 
