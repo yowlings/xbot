@@ -1,0 +1,7 @@
+<launch>
+        <node name="nlp_sample" pkg="xbot_talker" type="nlp_sample" output="screen">
+            <param name="base_path" value="$(find xbot_talker)" />
+            <param name="log_path" value="$(find xbot_talker)/cache/log" />
+            <param name="nlp_config_path" value="$(find xbot_talker)/defaultconfig/answer_dic.csv" />
+        </node>
+</launch>

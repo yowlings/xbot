@@ -1,0 +1,3 @@
+string action_desc
+string action_name
+int8 action_flag

@@ -1,0 +1,3 @@
+bool get_actionmode_req
+---
+xbot_talker/actionmode_ros actionmode_list

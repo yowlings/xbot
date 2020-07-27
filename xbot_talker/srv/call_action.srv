@@ -1,0 +1,3 @@
+bool get_action_req
+---
+xbot_talker/action_ros action_list
