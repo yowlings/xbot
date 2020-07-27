@@ -1,0 +1,88 @@
+{
+    "Dialogue": [
+        {
+            "answer": "好的", 
+            "action":3, 
+            "action_mode": 0, 
+            "keyword": "向前走"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 3, 
+            "action_mode": 0, 
+            "keyword": "向前走一步"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 4, 
+            "action_mode": 0, 
+            "keyword": "向后走"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 4, 
+            "action_mode": 0, 
+            "keyword": "向后走一步"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 4, 
+            "action_mode": 0, 
+            "keyword": "向后退"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 4, 
+            "action_mode": 0, 
+            "keyword": "向后退一步"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 5, 
+            "action_mode": 0, 
+            "keyword": "向左转"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 5, 
+            "action_mode": 0, 
+            "keyword": "向左旋转"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 6, 
+            "action_mode": 0, 
+            "keyword": "向右转"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 6, 
+            "action_mode": 0, 
+            "keyword": "向右旋转"
+        }, 
+        {
+            "answer": "你好，我是机器人小德，很高兴为你服务。", 
+            "action": 0, 
+            "action_mode": 3, 
+            "keyword": "你好"
+        }, 
+        {
+            "answer": "我叫小德。", 
+            "action": 0, 
+            "action_mode": 3, 
+            "keyword": "你叫什么名字"
+        }, 
+        {
+            "answer": "我已经三岁啦。", 
+            "action": 0, 
+            "action_mode": 3, 
+            "keyword": "你多大了"
+        }, 
+        {
+            "answer": "我已经三岁啦。", 
+            "action": 0, 
+            "action_mode": 3, 
+            "keyword": "你几岁了"
+        }
+    ]
+}

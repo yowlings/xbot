@@ -51,7 +51,7 @@ void XbotRos::processBaseStreamData() {
   publishCoreSensor();
   publishEchoData();
   publishInfraredData();
-  publishStopButtonState();
+  publishMotorState();
   publishBatteryState();
   publishRobotState();
 }
@@ -84,7 +84,6 @@ void XbotRos::publishWheelState() {
 
 void XbotRos::publishCoreSensor() {
   if (ros::ok()) {
-    if (core_sensor_publisher.getNumSubscribers() > 0) {
       xbot_msgs::CoreSensor core_sensor;
       CoreSensors::Data data = xbot.getCoreSensorData();
 
@@ -100,27 +99,39 @@ void XbotRos::publishCoreSensor() {
       core_sensor.error_state = data.error_state;
       core_sensor.left_motor_current = data.left_motor_current;
       core_sensor.right_motor_current = data.right_motor_current;
-      core_sensor.motor_disabled = data.stop_button_state;
+      core_sensor.motor_enabled = data.motor_enabled;
+      if(core_sensor.motor_enabled!=motor_enabled_){
+        xbot.setPowerControl(motor_enabled_);
+      }
       core_sensor.time_stamp = data.timestamp;
       core_sensor.version = data.version;
 
       core_sensor_publisher.publish(core_sensor);
-    }
   }
 }
 
 void XbotRos::publishEchoData() {
   if (ros::ok()) {
-    if (echo_data_publisher.getNumSubscribers() > 0) {
-      xbot_msgs::Echo msg;
+    if (front_echo_data_publisher.getNumSubscribers() > 0 ||
+        rear_echo_data_publisher.getNumSubscribers() > 0) {
+      sensor_msgs::Range front_msg, rear_msg;
       CoreSensors::Data data_echo = xbot.getCoreSensorData();
-      msg.header.frame_id = "echo_link";
-      msg.header.stamp = ros::Time::now();
-      msg.front = data_echo.front_echo;
-      msg.rear = data_echo.rear_echo;
-      msg.front_near = (data_echo.front_echo < 1600);
-      msg.rear_near = (data_echo.rear_echo < 1600);
-      echo_data_publisher.publish(msg);
+      front_msg.header.frame_id = "front_echo_link";
+      front_msg.header.stamp = ros::Time::now();
+      front_msg.radiation_type = sensor_msgs::Range::ULTRASOUND;
+      front_msg.field_of_view = 60 * M_PI / 180.0;
+      front_msg.max_range = 2.0;
+      front_msg.min_range = 0.1;
+      front_msg.range = data_echo.front_echo / 5880.0;
+      rear_msg.header.frame_id = "rear_echo_link";
+      rear_msg.header.stamp = ros::Time::now();
+      rear_msg.radiation_type = sensor_msgs::Range::ULTRASOUND;
+      rear_msg.field_of_view = 60 * M_PI / 180.0;
+      rear_msg.max_range = 2.0;
+      rear_msg.min_range = 0.1;
+      rear_msg.range = data_echo.rear_echo / 5880.0;
+      rear_echo_data_publisher.publish(rear_msg);
+      front_echo_data_publisher.publish(front_msg);
     }
   }
 }
@@ -132,22 +143,26 @@ void XbotRos::publishInfraredData() {
       CoreSensors::Data data_core = xbot.getCoreSensorData();
       msg.header.frame_id = "infrared_link";
       msg.header.stamp = ros::Time::now();
-      msg.front = data_core.front_infrared;
-      msg.rear = data_core.rear_infrared;
-      msg.front_hanged = (data_core.front_infrared > 2000);
-      msg.rear_hanged = (data_core.rear_infrared > 2000);
+      msg.front =
+          (12.63 / (data_core.front_infrared * 3.3 / 4096 - 0.042) - 0.042) /
+          100.0;
+      msg.rear =
+          (12.63 / (data_core.rear_infrared * 3.3 / 4096 - 0.042) - 0.042) /
+          100.0;
+      msg.front_hanged = (msg.front - 0.02 > xbot_msgs::InfraRed::PLAT_HEIGHT);
+      msg.rear_hanged = (msg.rear - 0.02 > xbot_msgs::InfraRed::PLAT_HEIGHT);
       infrared_data_publisher.publish(msg);
     }
   }
 }
 
-void XbotRos::publishStopButtonState() {
+void XbotRos::publishMotorState() {
   if (ros::ok()) {
-    if (stop_buttom_state_publisher.getNumSubscribers() > 0) {
+    if (motor_state_publisher.getNumSubscribers() > 0) {
       std_msgs::Bool msg;
       CoreSensors::Data data_core = xbot.getCoreSensorData();
-      msg.data = data_core.stop_button_state;
-      stop_buttom_state_publisher.publish(msg);
+      msg.data = data_core.motor_enabled;
+      motor_state_publisher.publish(msg);
     }
   }
 }
@@ -167,16 +182,10 @@ void XbotRos::publishBatteryState() {
     if (led_indicate_battery) {
       unsigned char leds = msg.battery_percent / 25 + 1;
       leds = pow(2, leds) - 1;
-      xbot.setLedControl(leds);
+      if (!(led_times_ % 100)) xbot.setLedControl(leds);
+      led_times_++;
+      if (led_times_ > 1e10) led_times_ = 0;
     }
-
-    if (!announced_battery) {
-      client_thread.start(&XbotRos::call_srv, *this);
-
-      announced_battery = true;
-    }
-
-    //    }
   }
 }
 
@@ -189,6 +198,7 @@ void XbotRos::publishRobotState() {
     msg.header.stamp = ros::Time::now();
     msg.base_is_connected = xbot.is_base_connected();
     msg.sensor_is_connected = xbot.is_sensor_connected();
+    msg.robot_is_alive = xbot.base_isAlive()&&xbot.sensor_isAlive();
     msg.echo_plug_error = core_data.error_state;
     msg.infrared_plug_error = core_data.error_state;
     msg.motor_error = core_data.error_state;
@@ -209,16 +219,22 @@ void XbotRos::processSensorStreamData() {
 }
 void XbotRos::publishExtraSensor() {
   if (ros::ok()) {
-    if (extra_sensor_publisher.getNumSubscribers() > 0) {
       xbot_msgs::ExtraSensor extra_sensor;
-
       Sensors::Data data = xbot.getExtraSensorsData();
 
       extra_sensor.header.stamp = ros::Time::now();
-
-      extra_sensor.yaw_platform_degree = data.yaw_platform_degree;
-      extra_sensor.pitch_platform_degree = data.pitch_platform_degree;
-      extra_sensor.sound_is_mutex = data.sound_status;
+      extra_sensor.yaw_platform_degree = data.yaw_platform_degree-120;
+      if(fabs(ypd_-extra_sensor.yaw_platform_degree)>3.0){
+        xbot.setYawPlatformControl(ypd_);
+      }
+      extra_sensor.pitch_platform_degree = data.pitch_platform_degree-120;
+      if(fabs(ppd_-extra_sensor.pitch_platform_degree)>3.0){
+        xbot.setPitchPlatformControl(ppd_);
+      }
+      extra_sensor.sound_enabled = data.sound_enabled;
+      if(extra_sensor.sound_enabled!=sound_enabled_){
+        xbot.setSoundEnableControl(sound_enabled_);
+      }
       extra_sensor.acc_x = data.acc_x;
       extra_sensor.acc_y = data.acc_y;
       extra_sensor.acc_z = data.acc_z;
@@ -239,7 +255,6 @@ void XbotRos::publishExtraSensor() {
       extra_sensor.time_stamp = data.timestamp;
       extra_sensor.version = data.version;
       extra_sensor_publisher.publish(extra_sensor);
-    }
   }
 }
 
@@ -250,24 +265,26 @@ void XbotRos::publishInertia() {
     Sensors::Data data = xbot.getExtraSensorsData();
     imu_msg.header.stamp = ros::Time::now();
     imu_msg.header.frame_id = "imu_link";
-    imu_msg.orientation = tf::createQuaternionMsgFromYaw(xbot.getHeading());
-    imu_msg.orientation_covariance[0] = 10.01;
-    imu_msg.orientation_covariance[4] = 10.01;
-    imu_msg.orientation_covariance[8] = 10.01;
+    //    imu_msg.orientation = tf::createQuaternionMsgFromRollPitchYaw(
+    //        data.roll, data.pitch, data.yaw);
+
+    //    imu_msg.orientation_covariance[0] = 10.01;
+    //    imu_msg.orientation_covariance[4] = 10.01;
+    //    imu_msg.orientation_covariance[8] = 10.01;
 
     imu_msg.angular_velocity.x = data.gyro_x;
     imu_msg.angular_velocity.y = data.gyro_y;
     imu_msg.angular_velocity.z = data.gyro_z;
-    imu_msg.angular_velocity_covariance[0] = 10.01;
-    imu_msg.angular_velocity_covariance[4] = 10.01;
-    imu_msg.angular_velocity_covariance[8] = 10.01;
+    //    imu_msg.angular_velocity_covariance[0] = 10.01;
+    //    imu_msg.angular_velocity_covariance[4] = 10.01;
+    //    imu_msg.angular_velocity_covariance[8] = 10.01;
 
     imu_msg.linear_acceleration.x = data.acc_x;
     imu_msg.linear_acceleration.y = data.acc_y;
     imu_msg.linear_acceleration.z = data.acc_z;
-    imu_msg.linear_acceleration_covariance[0] = 0.01;
-    imu_msg.linear_acceleration_covariance[4] = 0.01;
-    imu_msg.linear_acceleration_covariance[8] = 0.01;
+    //    imu_msg.linear_acceleration_covariance[0] = 0.01;
+    //    imu_msg.linear_acceleration_covariance[4] = 0.01;
+    //    imu_msg.linear_acceleration_covariance[8] = 0.01;
 
     imu_data_publisher.publish(imu_msg);
   }
@@ -322,11 +339,11 @@ void XbotRos::publishPitchPlatformState() {
 void XbotRos::publishSoundState() {
   if (ros::ok()) {
     if (sound_state_publisher.getNumSubscribers() > 0) {
-      std_msgs::Bool sound_is_mute;
+      std_msgs::Bool sound_enabled;
       Sensors::Data data = xbot.getExtraSensorsData();
-      sound_is_mute.data = data.sound_status;
+      sound_enabled.data = data.sound_enabled;
 
-      sound_state_publisher.publish(sound_is_mute);
+      sound_state_publisher.publish(sound_enabled);
     }
   }
 }

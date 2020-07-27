@@ -1,0 +1,31 @@
+<package>
+    <name>xbot</name>
+    <version>3.2.3</version>
+    <description>
+        --------------------------------------------------------------------------
+        A group of ROS packages for xbot-u user using.
+        The matapackage includes driver,ros node , face recognition, navigation(SLAM, navigation)and talker package,
+        for learning and searching robot technology aside with ROS_Academy_for_beginners.
+        --------------------------------------------------------------------------
+    </description>
+    <maintainer email="wangpeng@droid.ac.cn">Rocwang</maintainer>
+    <author>Rocwang</author>
+    <license>BSD</license>
+    <url>http://www.droid.ac.cn</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <run_depend>xbot_bringup</run_depend>
+    <run_depend>xbot_description</run_depend>
+    <run_depend>xbot_driver</run_depend>
+    <run_depend>xbot_face</run_depend>
+    <run_depend>xbot_msgs</run_depend>
+    <run_depend>xbot_navi</run_depend>
+    <run_depend>xbot_node</run_depend>
+    <run_depend>xbot_safety_controller</run_depend>
+    <run_depend>xbot_talker</run_depend>
+    <run_depend>xbot_tools</run_depend>
+    <export>
+        <metapackage/>
+    </export>
+</package>

@@ -1,0 +1,29 @@
+{
+    "ActionMode":[
+        {
+            "description":"先回答再动作",
+            "name":"PLAY_BEFORE_ACTION",
+            "flag":0
+        },
+        {
+            "description":"先动作再回答",
+            "name":"PLAY_AFTER_ACTION",
+            "flag":1
+        },
+        {
+            "description":"动作回答同时",
+            "name":"PLAY_AND_ACTION_SYNC",
+            "flag":2
+        },
+        {
+            "description":"仅回答",
+            "name":"PLAY_ONLY",
+            "flag":3
+        },
+        {
+            "description":"仅动作",
+            "name":"ACTION_ONLY",
+            "flag":4
+        }
+    ]
+}

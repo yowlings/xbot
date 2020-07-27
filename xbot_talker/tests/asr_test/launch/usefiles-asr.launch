@@ -1,0 +1,13 @@
+<launch>
+        <node name="asr_sample" pkg="xbot_talker" type="read_files_asr" output="screen">
+        <param name="test_dir_path" value="$(find xbot_talker)/cache/pcm" />
+        <param name="enable_online" value="true" type="bool" />
+        <param name="enable_offline" value="true" type="bool" />
+
+        <param name="base_path" value="$(find xbot_talker)" />
+        <param name="grammar_path" value="$(find xbot_talker)/cache/grammar_config" />
+        <param name="audio_channel" value="1" type="int" />
+        <param name="log_path" value="$(find xbot_talker)/cache/log" />
+
+        </node>
+</launch>

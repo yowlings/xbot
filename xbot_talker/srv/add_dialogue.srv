@@ -1,0 +1,6 @@
+string keyword
+string answer
+uint8 action
+uint8 action_mode
+---
+uint8 config_status

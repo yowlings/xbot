@@ -26,6 +26,9 @@ XBot-U机器人是一款面向高校与科研院所研发的双轮差分式移�
 | xbot_safety_controller | 机器人安全控制程序                       |
 | xbot_description       | ROS建模与urdf描述文件                    |
 | xbot_tools             | 用于调试、开发以及运行过程的一些工具软件 |
+| xbot_face             | 人脸识别程序 |
+| xbot_navi           | SLAM、导航规划程序 |
+| xbot_talker             | 机器人语音交互和对话程序 |
 
 ## 使用方法
 以下介绍几种常用的机器人ROS程序启动方法：

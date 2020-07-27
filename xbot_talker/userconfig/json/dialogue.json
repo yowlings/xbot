@@ -1,0 +1,459 @@
+{
+    "Dialogue": [
+        {
+            "answer": "你好。我是机器人小德。", 
+            "action": 0, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 3, 
+            "keyword": "你好"
+        }, 
+        {
+            "answer": "我叫小德", 
+            "action": 0, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 3, 
+            "keyword": "你叫什么名字"
+        }, 
+        {
+            "answer": "我已经三岁啦", 
+            "action": 0, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 3, 
+            "keyword": "你多大了"
+        }, 
+        {
+            "answer": "我已经三岁啦", 
+            "action": 0, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 3, 
+            "keyword": "你几岁了"
+        }, 
+        {
+            "answer": "我来自重德智能", 
+            "action": 0, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 3, 
+            "keyword": "你来自哪里"
+        }, 
+        {
+            "answer": "我是机器人小德。集科研、教育、服务于一身。", 
+            "action": 0, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 3, 
+            "keyword": "介绍一下你自己"
+        }, 
+        {
+            "answer": "我是机器人小德。集科研、教育、服务于一身。", 
+            "action": 0, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 3, 
+            "keyword": "你自我介绍一下"
+        }, 
+        {
+            "answer": "我是机器人小德。集科研、教育、服务于一身。", 
+            "action": 0, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 3, 
+            "keyword": "介绍你自己"
+        }, 
+        {
+            "answer": "期待与你的下次相遇", 
+            "action": 0, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 3, 
+            "keyword": "再见"
+        }, 
+        {
+            "answer": "我可以和你一起学习。一起听歌。一起散步。", 
+            "action": 0, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 3, 
+            "keyword": "你会什么"
+        }, 
+        {
+            "answer": "我和你的每一次遇见都是我的小确幸。", 
+            "action": 0, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 3, 
+            "keyword": "很高兴见到你"
+        }, 
+        {
+            "answer": "北京中科重德智能科技有限公司是源自中国科学院的创业公司。公司致力于研发智能机器人科研教学平台。提供稳定可靠、安全高效的机器人软硬件一体化解决方案", 
+            "action": 0, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 3, 
+            "keyword": "介绍重德智能"
+        }, 
+        {
+            "answer": "我是机器人小德。集科研、教育、服务于一身。", 
+            "action": 0, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 3, 
+            "keyword": "你是谁"
+        }, 
+        {
+            "answer": "我可以和你一起学习。一起听歌。一起散步。", 
+            "action": 0, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 3, 
+            "keyword": "你会做什么"
+        }, 
+        {
+            "answer": "北京中科重德智能科技有限公司是源自中国科学院的创业公司。公司致力于研发智能机器人科研教学平台。提供稳定可靠、安全高效的机器人软硬件一体化解决方案", 
+            "action": 0, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 3, 
+            "keyword": "介绍一下重德智能"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 3, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "向前走"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 3, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "向前走一步"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 4, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "向后走"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 4, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "向后走一步"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 4, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "向后退"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 4, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "向后退一步"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 5, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "向左转"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 5, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "向左旋转"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 6, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "向右转"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 6, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "向右旋转"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 1, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "关闭"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 7, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "抬起左手"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 9, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "抬起右手"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 8, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "放下左手"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 10, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "放下右手"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 11, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "左手拿"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 11, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "左手抓住"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 13, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "右手拿"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 13, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "右手抓住"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 12, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "张开左手"
+        }, 
+        {
+            "answer": "好的", 
+            "action": 14, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "张开右手"
+        }, 
+        {
+            "answer": "收到。我将返回起始点", 
+            "action": 2, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "小德你回去吧"
+        }, 
+        {
+            "answer": "好的。请跟我来", 
+            "action": 15, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "带我找方总"
+        }, 
+        {
+            "answer": "好的。请跟我来", 
+            "action": 15, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "我想找方总"
+        }, 
+        {
+            "answer": "好的。请跟我来", 
+            "action": 15, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "去方总办公室"
+        }, 
+        {
+            "answer": "好的。请跟我来", 
+            "action": 16, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "找常总"
+        }, 
+        {
+            "answer": "好的。请跟我来", 
+            "action": 16, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "带我找常总"
+        }, 
+        {
+            "answer": "好的。请跟我来", 
+            "action": 16, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "我想找常总"
+        }, 
+        {
+            "answer": "好的。请跟我来", 
+            "action": 16, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "去常总办公室"
+        }, 
+        {
+            "answer": "收到，我将返回起始点", 
+            "action": 2, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "回到原点"
+        }, 
+        {
+            "answer": "收到，我将返回起始点", 
+            "action": 2, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "回到起点"
+        }, 
+        {
+            "answer": "好的，请跟我来", 
+            "action": 15, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "找方总"
+        }, 
+        {
+            "answer": "收到。我将返回起始点", 
+            "action": 2, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "你回去吧"
+        }, 
+        {
+            "answer": "好的，我们可以进行多次对话交互啦。", 
+            "action": 17, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "开启对话模式"
+        }, 
+        {
+            "answer": "好的，我们可以进行多次对话交互啦。", 
+            "action": 17, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "进入对话模式"
+        }, 
+        {
+            "answer": "好的，我们可以进行多次对话交互啦。", 
+            "action": 17, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "开启多轮交互模式"
+        }, 
+        {
+            "answer": "好的，我们可以进行多次对话交互啦。", 
+            "action": 17, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "开启多轮交互"
+        }, 
+        {
+            "answer": "好的，我们可以进行多次对话交互啦。", 
+            "action": 17, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "进入多轮交互模式"
+        }, 
+        {
+            "answer": "好啊，我们可以聊天啦。", 
+            "action": 17, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "跟我聊天"
+        }, 
+        {
+            "answer": "好啊，我们可以聊天啦。", 
+            "action": 17, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "陪我聊天"
+        }, 
+        {
+            "answer": "好啊，我们可以聊天啦。", 
+            "action": 17, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "能和我聊会天吗"
+        }, 
+        {
+            "answer": "好的。小德先退下啦。", 
+            "action": 1, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "退出对话模式"
+        }, 
+        {
+            "answer": "好的。小德先退下啦。", 
+            "action": 1, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "退出多轮交互模式"
+        }, 
+        {
+            "answer": "好的。小德先退下啦。", 
+            "action": 1, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "退出多轮交互"
+        }, 
+        {
+            "answer": "好的。小德先退下啦。", 
+            "action": 1, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "关闭对话"
+        }, 
+        {
+            "answer": "好的。小德先退下啦。", 
+            "action": 1, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "关闭对话模式"
+        }, 
+        {
+            "answer": "好的。小德先退下啦。", 
+            "action": 1, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "关闭多轮交互模式"
+        }, 
+        {
+            "answer": "好的。小德先退下啦。", 
+            "action": 1, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "退出聊天"
+        }, 
+        {
+            "answer": "好的。小德先退下啦。", 
+            "action": 1, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "退出对话"
+        }, 
+        {
+            "answer": "好的，我们可以进行多次对话交互啦。", 
+            "action": 17, 
+            "update_time": "2019-10-01 22:54:04", 
+            "action_mode": 0, 
+            "keyword": "开始对话"
+        }
+    ]
+}

@@ -1,12 +1,12 @@
 <package>
   <name>xbot_driver</name>
-  <version>1.2.1</version>
+  <version>3.2.3</version>
   <description>C++ driver library for xbot:
     Pure C++ driver library for xbot. This is for those who do not wish to use ROS on their systems.</description>
   <author>Roc</author>
   <author>wangpeng@droid.ac.cn</author>
   <maintainer email="wangpeng@droid.ac.cn">Roc</maintainer>
-  <license>LGPL</license>  
+  <license>BSD</license>  
   <url type="website">http://ros.org/wiki/xbot_driver</url>
 
   <buildtool_depend>catkin</buildtool_depend>

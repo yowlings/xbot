@@ -21,7 +21,7 @@ uint16 rear_echo
 uint16 front_infrared
 uint16 rear_infrared
 
-bool motor_disabled
+bool motor_enabled
 
 float32 left_motor_current
 float32 right_motor_current

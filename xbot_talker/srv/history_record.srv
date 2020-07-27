@@ -1,0 +1,3 @@
+bool get_history_record
+---
+xbot_talker/dialogue_ros dialogue_list

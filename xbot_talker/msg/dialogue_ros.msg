@@ -1,0 +1,1 @@
+xbot_talker/dialogue[] dialogue_ros 

@@ -66,15 +66,15 @@ bool Sensors::deserialise(ecl::PushAndPop<unsigned char>& byteStream) {
   //  竖直转台角度
   buildVariable(data.pitch_platform_degree, byteStream);
   //  音频状态
-  buildVariable(data.sound_status, byteStream);
+  buildVariable(data.sound_enabled, byteStream);
 
-  uint16_t tmp;
+  int16_t tmp;
   buildVariable(tmp, byteStream);
   data.acc_x = tmp * 0.00006086 * 9.8;
   buildVariable(tmp, byteStream);
   data.acc_y = tmp * 0.00006086 * 9.8;
   buildVariable(tmp, byteStream);
-  data.acc_z = (tmp * 0.00006086 - 1) * 9.8;
+  data.acc_z = tmp * 0.00006086 * 9.8;
   buildVariable(tmp, byteStream);
   data.gyro_x = tmp * 4 * 0.0152139846947314 * 3.1415926 / 180;
   buildVariable(tmp, byteStream);
@@ -92,9 +92,7 @@ bool Sensors::deserialise(ecl::PushAndPop<unsigned char>& byteStream) {
   //  IMU9250计算出的三轴角度
 
   buildVariable(data.yaw, byteStream);
-  data.yaw = data.yaw;
   buildVariable(data.pitch, byteStream);
-  data.pitch = data.pitch;
   buildVariable(data.roll, byteStream);
   //  IMU9250计算出的四元数
   buildVariable(data.q1, byteStream);

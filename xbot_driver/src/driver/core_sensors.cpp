@@ -120,8 +120,7 @@ bool CoreSensors::deserialise(ecl::PushAndPop<unsigned char> & byteStream)
 
 
 //  急停开关状态反馈
-  buildVariable(tmp,byteStream);
-  data.stop_button_state = (tmp == 0)?true:false;
+  buildVariable(data.motor_enabled,byteStream);
 
 //  两路电机电流
   buildVariable(data.left_motor_current, byteStream);

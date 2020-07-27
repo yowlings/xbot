@@ -80,6 +80,21 @@
     <origin rpy="0 0 0" xyz="0.0454 -0.0157 1.1724"/>
   </joint>
 
+  <link name="front_echo_link"/>
+  <joint name="base_to_front_echo" type="fixed">
+    <axis rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="front_echo_link"/>
+    <origin rpy="0 0 0" xyz="0.236 0.0 0.05683"/>
+  </joint>
+  <link name="rear_echo_link"/>
+  <joint name="base_to_rear_echo" type="fixed">
+    <axis rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="rear_echo_link"/>
+    <origin rpy="0 0 1.5707" xyz="-0.236 0.0 0.05683"/>
+  </joint>
+
   <link name="left_wheel">
     <collision name="collision">
       <origin xyz="0 0 0" rpy="1.57079632 0 0"/>

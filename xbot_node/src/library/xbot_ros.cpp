@@ -59,10 +59,14 @@ namespace xbot {
  */
 XbotRos::XbotRos(std::string& node_name)
     : name(node_name),
+      led_times_(0),
+      sound_enabled_(true),
+      motor_enabled_(true),
+      ypd_(0),
+      ppd_(0),
       cmd_vel_timed_out_(false),
-      base_serial_timed_out_(false),
-      sensor_serial_timed_out_(false),
-      announced_battery(false),
+      base_timeout_times_(0),
+      sensor_timeout_times_(0),
       base_slot_stream_data(&XbotRos::processBaseStreamData, *this),
       sensor_slot_stream_data(&XbotRos::processSensorStreamData, *this) {}
 
@@ -73,30 +77,19 @@ XbotRos::XbotRos(std::string& node_name)
  */
 XbotRos::~XbotRos() {
   ROS_INFO_STREAM("Xbot : waiting for xbot thread to finish [" << name << "].");
-  xbot.setSoundEnableControl(false);
+  sound_enabled_ = false;
+  motor_enabled_ = false;
+  ypd_=0;
+  ppd_=0;
   xbot.setLedControl(0);
-  client_thread.join();
 }
 
-void XbotRos::call_srv() {
-  xbot_talker::play srv;
-  srv.request.mode = 2;
-  //  std::string s1;
-  //  s1="我";
-  //  std::string s2;
-  //  s2=s1+std::to_string();
-
-  srv.request.tts_text = "机器人已启动并准备就绪！";
-  srv_play.call(srv);
-}
 bool XbotRos::init(ros::NodeHandle& nh) {
   /*********************
    ** Communications
    **********************/
   advertiseTopics(nh);
   subscribeTopics(nh);
-
-  srv_play = nh.serviceClient<xbot_talker::play>("/xbot/play");
 
   /*********************
    ** Slots
@@ -270,25 +263,25 @@ bool XbotRos::update() {
 
   bool base_is_alive = xbot.base_isAlive();
   if (!base_is_alive) {
-    if (!base_serial_timed_out_) {
+    base_timeout_times_++;
+    if (!base_timeout_times_>40) {
       ROS_ERROR_STREAM(
           "Xbot : Timed out while waiting for base serial data stream ["
           << name << "].");
-      base_serial_timed_out_ = true;
     } else {
-      base_serial_timed_out_ = false;
+      base_timeout_times_ = 0;
     }
   }
 
   bool sensor_is_alive = xbot.sensor_isAlive();
   if (!sensor_is_alive) {
-    if (!sensor_serial_timed_out_) {
+    if (!sensor_timeout_times_>40) {
       ROS_ERROR_STREAM(
           "Xbot : Timed out while waiting for sensor serial data stream ["
           << name << "].");
-      sensor_serial_timed_out_ = true;
+
     } else {
-      sensor_serial_timed_out_ = false;
+      sensor_timeout_times_ = 0;
     }
   }
 
@@ -317,14 +310,17 @@ void XbotRos::advertiseTopics(ros::NodeHandle& nh) {
       nh.advertise<std_msgs::Int8>("sensors/yaw_platform_degree", 100);
   pitch_platform_state_publisher =
       nh.advertise<std_msgs::Int8>("sensors/pitch_platform_degree", 100);
-  stop_buttom_state_publisher =
-      nh.advertise<std_msgs::Bool>("sensors/motor_disabled", 100);
+  motor_state_publisher =
+      nh.advertise<std_msgs::Bool>("sensors/motor_enabled", 100);
   sound_state_publisher =
       nh.advertise<std_msgs::Bool>("sensors/sound_enabled", 100);
   battery_state_publisher =
       nh.advertise<xbot_msgs::Battery>("sensors/battery", 100);
 
-  echo_data_publisher = nh.advertise<xbot_msgs::Echo>("sensors/echo", 100);
+  front_echo_data_publisher =
+      nh.advertise<sensor_msgs::Range>("sensors/front_echo", 100);
+  rear_echo_data_publisher =
+      nh.advertise<sensor_msgs::Range>("sensors/rear_echo", 100);
   infrared_data_publisher =
       nh.advertise<xbot_msgs::InfraRed>("sensors/infrared", 100);
 
@@ -340,7 +336,7 @@ void XbotRos::advertiseTopics(ros::NodeHandle& nh) {
  */
 void XbotRos::subscribeTopics(ros::NodeHandle& nh) {
   motor_enable_command_subscriber =
-      nh.subscribe(std::string("commands/motor_disable"), 10,
+      nh.subscribe(std::string("commands/motor_enable"), 10,
                    &XbotRos::subscribeMotorEnableCommand, this);
   velocity_command_subscriber =
       nh.subscribe(std::string("commands/velocity"), 10,
@@ -356,8 +352,6 @@ void XbotRos::subscribeTopics(ros::NodeHandle& nh) {
                    &XbotRos::subscribeSoundCommand, this);
   led_command_subscriber = nh.subscribe(std::string("commands/led"), 10,
                                         &XbotRos::subscribeLedCommand, this);
-  lift_command_subscirber =
-      nh.subscribe("commands/lift", 10, &XbotRos::subscribeLiftCommand, this);
   reset_odometry_subscriber = nh.subscribe(
       "commands/reset_odometry", 10, &XbotRos::subscribeResetOdometry, this);
 }

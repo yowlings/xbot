@@ -1,0 +1,19 @@
+<launch>
+        <node name="asr_sample" pkg="xbot_talker" type="asr_sample" output="screen">
+        <param name="enable_online" value="true" type="bool" />
+        <param name="enable_offline" value="true" type="bool" />
+        <param name="use_pcm_file" value="false" type="bool" />
+        <param name="use_mic" value="true" type="bool" />
+        <param name="enable_record_save" value="true" type="bool" />
+
+        <param name="record_time" value="3.5" />
+        <param name="base_path" value="$(find xbot_talker)" />
+        <param name="grammar_path" value="$(find xbot_talker)/cache/grammar_config" />
+        <param name="audio_channel" value="1" type="int" />
+        <param name="audio_save_path" value="$(find xbot_talker)/defaultconfig/audio" />
+        <param name="log_path" value="$(find xbot_talker)/cache/log" />
+        <param name="pcm_file" value="$(find xbot_talker)/defaultconfig/audio/nihao_test.pcm" />
+
+
+        </node>
+</launch>
