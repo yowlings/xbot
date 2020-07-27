@@ -62,6 +62,8 @@ XbotRos::XbotRos(std::string& node_name)
       led_times_(0),
       sound_enabled_(true),
       motor_enabled_(true),
+      ypd_(0),
+      ppd_(0),
       cmd_vel_timed_out_(false),
       base_timeout_times_(0),
       sensor_timeout_times_(0),
@@ -77,6 +79,8 @@ XbotRos::~XbotRos() {
   ROS_INFO_STREAM("Xbot : waiting for xbot thread to finish [" << name << "].");
   sound_enabled_ = false;
   motor_enabled_ = false;
+  ypd_=0;
+  ppd_=0;
   xbot.setLedControl(0);
 }
 

@@ -130,6 +130,7 @@ class XbotRos {
    ** Ros Subscribers
    **********************/
   bool motor_enabled_, sound_enabled_;
+  int8_t ypd_,ppd_;
   ros::Subscriber motor_enable_command_subscriber;
   ros::Subscriber velocity_command_subscriber;
   ros::Subscriber yaw_platform_command_subscriber;

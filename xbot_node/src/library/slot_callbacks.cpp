@@ -84,7 +84,6 @@ void XbotRos::publishWheelState() {
 
 void XbotRos::publishCoreSensor() {
   if (ros::ok()) {
-    if (core_sensor_publisher.getNumSubscribers() > 0) {
       xbot_msgs::CoreSensor core_sensor;
       CoreSensors::Data data = xbot.getCoreSensorData();
 
@@ -100,7 +99,7 @@ void XbotRos::publishCoreSensor() {
       core_sensor.error_state = data.error_state;
       core_sensor.left_motor_current = data.left_motor_current;
       core_sensor.right_motor_current = data.right_motor_current;
-      core_sensor.motor_enabled = !data.stopped;
+      core_sensor.motor_enabled = data.motor_enabled;
       if(core_sensor.motor_enabled!=motor_enabled_){
         xbot.setPowerControl(motor_enabled_);
       }
@@ -108,7 +107,6 @@ void XbotRos::publishCoreSensor() {
       core_sensor.version = data.version;
 
       core_sensor_publisher.publish(core_sensor);
-    }
   }
 }
 
@@ -163,7 +161,7 @@ void XbotRos::publishMotorState() {
     if (motor_state_publisher.getNumSubscribers() > 0) {
       std_msgs::Bool msg;
       CoreSensors::Data data_core = xbot.getCoreSensorData();
-      msg.data = !data_core.stopped;
+      msg.data = data_core.motor_enabled;
       motor_state_publisher.publish(msg);
     }
   }
@@ -221,13 +219,18 @@ void XbotRos::processSensorStreamData() {
 }
 void XbotRos::publishExtraSensor() {
   if (ros::ok()) {
-    if (extra_sensor_publisher.getNumSubscribers() > 0) {
       xbot_msgs::ExtraSensor extra_sensor;
       Sensors::Data data = xbot.getExtraSensorsData();
 
       extra_sensor.header.stamp = ros::Time::now();
-      extra_sensor.yaw_platform_degree = data.yaw_platform_degree;
-      extra_sensor.pitch_platform_degree = data.pitch_platform_degree;
+      extra_sensor.yaw_platform_degree = data.yaw_platform_degree-120;
+      if(fabs(ypd_-extra_sensor.yaw_platform_degree)>3.0){
+        xbot.setYawPlatformControl(ypd_);
+      }
+      extra_sensor.pitch_platform_degree = data.pitch_platform_degree-120;
+      if(fabs(ppd_-extra_sensor.pitch_platform_degree)>3.0){
+        xbot.setPitchPlatformControl(ppd_);
+      }
       extra_sensor.sound_enabled = data.sound_enabled;
       if(extra_sensor.sound_enabled!=sound_enabled_){
         xbot.setSoundEnableControl(sound_enabled_);
@@ -252,7 +255,6 @@ void XbotRos::publishExtraSensor() {
       extra_sensor.time_stamp = data.timestamp;
       extra_sensor.version = data.version;
       extra_sensor_publisher.publish(extra_sensor);
-    }
   }
 }
 

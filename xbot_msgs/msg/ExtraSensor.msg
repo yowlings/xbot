@@ -1,6 +1,6 @@
 Header header
-uint8 yaw_platform_degree
-uint8 pitch_platform_degree
+int8 yaw_platform_degree
+int8 pitch_platform_degree
 bool sound_enabled
 float32 acc_x
 float32 acc_y
