@@ -1,6 +1,6 @@
 <package>
   <name>xbot_safety_controller</name>
-  <version>3.2.2</version>
+  <version>3.2.3</version>
   <description>
     A controller ensuring the safe operation of Xbot.
 

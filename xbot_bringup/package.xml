@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>xbot_bringup</name>
-  <version>3.2.2</version>
+  <version>3.2.3</version>
   <description>The xbot_bringup package</description>
   <author>Rocwang</author>
   <author>Changkun</author>
