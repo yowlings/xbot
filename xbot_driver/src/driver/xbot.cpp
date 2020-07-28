@@ -10,7 +10,7 @@
  ** Includes
  *****************************************************************************/
 
-#include "../../include/xbot_driver/xbot.hpp"
+#include <xbot_driver/xbot.hpp>
 #include <cmath>
 #include <ecl/converters.hpp>
 #include <ecl/geometry/angle.hpp>
@@ -21,7 +21,7 @@
 #include <ecl/time/timestamp.hpp>
 #include <fstream>
 #include <stdexcept>
-#include "../../include/xbot_driver/packet_handler/payload_headers.hpp"
+#include <xbot_driver/packet_handler/payload_headers.hpp>
 
 /*****************************************************************************
  ** Namespaces
@@ -74,7 +74,7 @@ Xbot::~Xbot() {
   sig_debug.emit("Device: xbot driver terminated.");
 }
 
-void Xbot::init(Parameters &parameters) throw(ecl::StandardException) {
+void Xbot::init(Parameters &parameters){
   if (!parameters.validate()) {
     throw ecl::StandardException(LOC, ecl::ConfigurationError,
                                  "Xbot's parameter settings did not validate.");
@@ -549,7 +549,7 @@ void Xbot::getWheelJointStates(float &wheel_left_angle,
  * @param pose_update : return the pose updates in this variable.
  * @param pose_update_rates : return the pose update rates in this variable.
  */
-void Xbot::updateOdometry(ecl::Pose2D<double> &pose_update,
+void Xbot::updateOdometry(ecl::LegacyPose2D<double> &pose_update,
                           ecl::linear_algebra::Vector3d &pose_update_rates) {
   diff_drive.update(core_sensors.data.timestamp, core_sensors.data.left_encoder,
                     core_sensors.data.right_encoder, pose_update,

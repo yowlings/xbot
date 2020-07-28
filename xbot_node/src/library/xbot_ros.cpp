@@ -197,13 +197,13 @@ bool XbotRos::init(ros::NodeHandle& nh) {
 
     ros::Duration(0.1).sleep();  // wait for some data to come in.
     if (!xbot.base_isAlive()) {
-      ROS_WARN_STREAM(
+      ROS_ERROR_STREAM(
           "Xbot : no base data stream, is base board connected or turned on?");
       // don't need to return false here - simply turning xbot on while
       // spin()'ing should resurrect the situation.
     }
     if (!xbot.sensor_isAlive()) {
-      ROS_WARN_STREAM(
+      ROS_ERROR_STREAM(
           "Xbot : no sensor data stream, is sensor board connected or turned "
           "on?");
       // don't need to return false here - simply turning xbot on while
@@ -264,7 +264,7 @@ bool XbotRos::update() {
   bool base_is_alive = xbot.base_isAlive();
   if (!base_is_alive) {
     base_timeout_times_++;
-    if (!base_timeout_times_>40) {
+    if (base_timeout_times_>40) {
       ROS_ERROR_STREAM(
           "Xbot : Timed out while waiting for base serial data stream ["
           << name << "].");
@@ -275,7 +275,8 @@ bool XbotRos::update() {
 
   bool sensor_is_alive = xbot.sensor_isAlive();
   if (!sensor_is_alive) {
-    if (!sensor_timeout_times_>40) {
+      sensor_timeout_times_++;
+      if (sensor_timeout_times_>40) {
       ROS_ERROR_STREAM(
           "Xbot : Timed out while waiting for sensor serial data stream ["
           << name << "].");

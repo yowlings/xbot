@@ -8,7 +8,7 @@
 
 
   <node pkg="nodelet" type="nodelet" name="mobile_base_nodelet_manager" args="manager"/>
-  <node pkg="nodelet" type="nodelet" name="mobile_base" args="load xbot_node/XbotNodelet mobile_base_nodelet_manager" >
+  <node pkg="nodelet" type="nodelet" name="mobile_base" args="load xbot_node/XbotNodelet mobile_base_nodelet_manager">
     <rosparam file="$(find xbot_node)/param/base.yaml" command="load"/>
     <param name="base_port" value="$(arg base_port)" />
     <param name="sensor_port" value="$(arg sensor_port)" />

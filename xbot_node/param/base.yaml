@@ -5,8 +5,8 @@
 # device_port: /dev/xbot
 
 # published joint states
-wheel_left_joint_name: wheel_left_joint
-wheel_right_joint_name: wheel_right_joint
+wheel_left_joint_name: left_wheel_hinge
+wheel_right_joint_name: right_wheel_hinge
 
 # battery voltage at full charge (100%) (float, default: 16.5)
 battery_capacity: 29.4

@@ -92,11 +92,11 @@ class xbot_PUBLIC Xbot {
    ** Configuration
    **********************/
   //初始化
-  void init(Parameters &parameters) throw(ecl::StandardException);
+  void init(Parameters &parameters);
   bool base_isAlive() const {
     return base_is_alive;
   } /**< Whether the connection to the robot is alive and currently streaming.
-       **/
+     **/
   bool sensor_isAlive() const { return sensor_is_alive; }
   bool isShutdown() const {
     return shutdown_requested;
@@ -183,7 +183,7 @@ class xbot_PUBLIC Xbot {
                            float &wheel_right_angle,
                            float &wheel_right_angle_rate);
   //  机器人码盘数据计算运动轨迹，用于ros发布odom
-  void updateOdometry(ecl::Pose2D<double> &pose_update,
+  void updateOdometry(ecl::LegacyPose2D<double> &pose_update,
                       ecl::linear_algebra::Vector3d &pose_update_rates);
 
   /*********************
