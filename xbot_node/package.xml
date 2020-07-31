@@ -53,7 +53,6 @@
   <!-- Xbot -->
   <run_depend>xbot_msgs</run_depend>
   <run_depend>xbot_driver</run_depend>
-  <run_depend>xbot_talker</run_depend>
 
   <!-- ECL -->
   <run_depend>ecl_exceptions</run_depend>

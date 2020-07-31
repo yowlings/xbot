@@ -76,7 +76,7 @@
 #include <geometry_msgs/Quaternion.h>
 #include "odometry.hpp"
 
-#include <xbot_talker/play.h>
+
 
 /*****************************************************************************
  ** Namespaces
