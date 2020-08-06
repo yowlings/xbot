@@ -12,7 +12,7 @@
 	</include>
 
 	<!-- face recog camera image -->
-	<node name="pub_camera_image" pkg="xbot_face" type="pub_camera_image" >
+	<node name="pub_camera_image" pkg="xbot_face" type="camera_image.py" >
 	</node>
 	<!-- output face recog result -->
 	<node name="face_recog" pkg="xbot_face" type="face_recog.py" />

@@ -1,8 +1,8 @@
+#include <string.h>
 #include "ros/ros.h"
 #include "xbot_face/FaceResult.h"
 #include "xbot_talker/chat.h"
 #include "xbot_talker/play.h"
-#include <string.h>
 
 using namespace std;
 int detect_times = 0;
@@ -14,9 +14,7 @@ ros::ServiceClient chatclient;
 string kehu = "lyh";
 string wenhou = "你好，刘银河";
 
-void
-faceCB(xbot_face::FaceResult msg)
-{
+void faceCB(xbot_face::FaceResult msg) {
   if (meet) {
     return;
   }
@@ -58,9 +56,7 @@ faceCB(xbot_face::FaceResult msg)
   }
 }
 
-int
-main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
   ros::init(argc, argv, "play_client");
   ros::NodeHandle n;
 
