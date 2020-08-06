@@ -1,0 +1,6 @@
+S: v4l/by-id/usb-Generic_USB-Camera_200901010001-video-index0
+E: DEVLINKS=/dev/v4l/by-id/usb-Generic_USB-Camera_200901010001-video-index0 /dev/v4l/by-path/pci-0000:02:00.0-usb-0:1:1.0-video-index0
+E: ID_MODEL=USB-Camera
+E: ID_MODEL_ENC=USB-Camera
+E: ID_SERIAL=Generic_USB-Camera_200901010001
+E: ID_V4L_PRODUCT=USB-Camera: USB-Camera

@@ -15,8 +15,8 @@ def getCameraId():
   vf.close()
   vn = len(vs)
   # print vs
-  for i in xrange(0,vn):
-    vd = "/dev/video"+str(i)
+  for dev in vs:
+    vd = dev[:-1]
     cmd = "udevadm info "+vd+" |grep USB-Camera > vs.info"
     os.system(cmd)
     infof = open("vs.info",'r')
@@ -24,7 +24,7 @@ def getCameraId():
     infof.close()
     # print info
     if len(info)!=0:
-      return int(vs[i][-2])
+      return int(vd[-1])
       
   return -1
 
