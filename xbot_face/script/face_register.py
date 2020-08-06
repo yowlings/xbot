@@ -17,6 +17,27 @@ result = {0:"成功", 1:"请求超时",2:"识别/核身解析结果错误",3:"�
 		12:"文件不存在",13:"人脸图片打开失败",14:"人脸已存在（注册人脸时method=normal情况下，userid重复",
 		15:"未检测到网卡",16:"输入信息不合法",17:"一键开门失败",18:"文件读取失败",2019:"恢复出厂设置失败",
 		2010:"数据清除失败",2021:"获取日志列表失败",22:"MAC地址不匹配"}	
+def getCameraId():
+  cmd = "ls /dev/video* > vs.out"
+  os.system(cmd)
+  vf = open('vs.out','r')
+  vs = vf.readlines()
+  vf.close()
+  vn = len(vs)
+  # print vs
+  for dev in vs:
+    vd = dev[:-1]
+    cmd = "udevadm info "+vd+" |grep USB-Camera > vs.info"
+    os.system(cmd)
+    infof = open("vs.info",'r')
+    info = infof.readlines()
+    infof.close()
+    # print info
+    if len(info)!=0:
+      return int(vd[-1])
+      
+  return -1
+
 
 class face_register():
 	def __init__(self):	
@@ -28,8 +49,7 @@ class face_register():
 				image_path = sys.argv[2]
 				self.image_register(user_name)
 			if mode =="camera":
-				camera_index = sys.argv[2]
-				camera_index = int(camera_index)
+				camera_index = getCameraId()
 				self.camera_register(camera_index)
 		except KeyboardInterrupt:
 			print("	Has Exited or Finished!")

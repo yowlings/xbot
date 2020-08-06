@@ -37,18 +37,11 @@ include_directories(
 
 set(OpenCV_DIR /usr/local/share/OpenCV) 
 message(STATUS "    version: ${OpenCV_VERSION}") 
-find_package(OpenCV REQUIRED) 
-add_executable(pub_camera_image src/camera_image.cpp)
-include_directories(${OpenCV_INCLUDE_DIRS}) 
-target_link_libraries(pub_camera_image ${OpenCV_LIBS})
-target_link_libraries(pub_camera_image ${catkin_LIBRARIES})
-
-install(TARGETS pub_camera_image
-        DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
 install(DIRECTORY launch
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
-catkin_install_python(PROGRAMS script/face_recog.py script/face_register.py
+catkin_install_python(PROGRAMS script/face_recog.py script/face_register.py script/camera_image.py
         DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
