@@ -50,7 +50,7 @@
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>message_runtime</run_depend>
-  <build_depend>gflags</build_depend>
+
   
 
   <!-- The export tag contains other, unspecified, tags -->
