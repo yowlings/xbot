@@ -1,0 +1,10 @@
+stages:
+  - build-pages
+pages:
+  stage: build-pages
+  only:
+    - melodic-devel
+  tags:
+    - melodic
+  script:
+    - bash .ci-runner.sh
