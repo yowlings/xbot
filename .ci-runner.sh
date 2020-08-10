@@ -5,4 +5,5 @@ cp -r ../xbot ~/catkin_ws/src
 cd ~/catkin_ws
 source /opt/ros/melodic/setup.bash
 rosdep install --from-paths src --ignore-src --rosdistro=melodic -y
+sleep 30
 catkin_make
