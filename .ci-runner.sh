@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-cd ~/catkin_ws/src/
-rm -rf xbot
-git clone -b melodic-devel git@yt.droid.ac.cn:xbot-u/xbot.git
+rm -rf ~/catkin_ws/src/xbot
+cp -r ../xbot ~/catkin_ws/src
 cd ~/catkin_ws
 source /opt/ros/melodic/setup.bash
 rosdep install --from-paths src --ignore-src --rosdistro=melodic -y
