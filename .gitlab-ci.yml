@@ -1,7 +1,7 @@
 stages:
-  - build-pages
+  - build-src
 pages:
-  stage: build-pages
+  stage: build-src
   only:
     - melodic-devel
   tags:
