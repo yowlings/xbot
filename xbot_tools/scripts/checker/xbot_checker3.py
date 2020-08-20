@@ -39,7 +39,7 @@ def getCameraId():
   camera = False
   for dev in vs:
     vd = dev[:-1]
-    cmd = "udevadm info "+vd+" |grep USB-Camera > vs.info"
+    cmd = "udevadm info "+vd+" |grep USB_video_device > vs.info"
     os.system(cmd)
     infof = open("vs.info",'r')
     info = infof.readlines()
@@ -117,6 +117,7 @@ for i in range(0, port_num):
 	if( label_rplidar in str(port_list[i])):
 		rplidar_pluged = True
 		port_list.remove(port_list[i])
+		port_num = port_num - 1
 		break
 if not rplidar_pluged:
 	print '\033[1;31m[×] 激光雷达 \033[0m'
@@ -131,6 +132,7 @@ for i in range(0, port_num):
 	if( label_arm in str(port_list[i])):
 		arm_pluged = True
 		port_list.remove(port_list[i])
+		port_num = port_num - 1
 		break
 if not arm_pluged:
 	print '\033[1;31m[×] 机械臂 \033[0m'
