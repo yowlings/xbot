@@ -27,7 +27,7 @@ def getCameraId():
   # print vs
   for dev in vs:
     vd = dev[:-1]
-    cmd = "udevadm info "+vd+" |grep USB_video_device > vs.info"
+    cmd = "udevadm info "+vd+" |grep 'ID_VENDOR_ID=0bda' > vs.info"
     os.system(cmd)
     infof = open("vs.info",'r')
     info = infof.readlines()
